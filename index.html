@@ -1,0 +1,2757 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="author" content="Ryan Hafen" />
+
+
+
+<title>rbokeh iris dataset</title>
+
+<meta property="og:title" content="rbokeh iris dataset" />
+
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+
+<link rel="icon" href="data:image/x-icon;" type="image/x-icon">
+
+
+<script type="text/javascript">
+window.FlexDashboardComponents = [];
+</script>
+
+<script id="flexdashboard-navbar" type="application/json">
+[{"icon":"fa-share-alt","items":[{"title":"Twitter","icon":"fa-twitter"},{"title":"Facebook","icon":"fa-facebook"},{"title":"Google+","icon":"fa-google-plus"},{"title":"LinkedIn","icon":"fa-linkedin"},{"title":"Pinterest","icon":"fa-pinterest"}]},{"title":"Source Code","icon":"fa-code","href":"source_embed","align":"right"}]
+</script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/stickytableheaders-0.1.19/jquery.stickytableheaders.min.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/featherlight-1.3.5/featherlight.min.css" rel="stylesheet" />
+<script src="site_libs/featherlight-1.3.5/featherlight.min.js"></script>
+<link href="site_libs/prism-1.4.1/prism.css" rel="stylesheet" />
+<script src="site_libs/prism-1.4.1/prism.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/bokehjs-0.12.5/bokeh.min.css" rel="stylesheet" />
+<link href="site_libs/bokehjs-0.12.5/loader.css" rel="stylesheet" />
+<script src="site_libs/bokehjs-0.12.5/bokeh.min.js"></script>
+<script src="site_libs/rbokeh-binding-0.5.2/rbokeh.js"></script>
+<style type="text/css">
+
+/*
+ Dashboard CSS from Keen IO Dashboards
+ (https://github.com/keen/dashboards)
+*/
+
+body {
+  background: #f2f2f2;
+  padding: 60px 0 0 8px; /* padding-top overridden by theme */
+}
+
+body hr {
+  border-color: #d7d7d7;
+  margin: 10px 0;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.navbar .navbar-brand {
+  text-decoration: none;
+}
+
+.navbar-logo {
+  margin-top: 1px;
+}
+
+.navbar-logo img {
+  margin-right: 12px;
+}
+
+.navbar-author {
+  margin-left: 10px;
+  font-size: 15px;
+}
+
+.navbar .dropdown-menu .fa {
+  min-width: 20px;
+}
+
+.navbar .dropdown-menu {
+  min-width: 150px;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.chart-wrapper,
+.nav-tabs-custom,
+.sbframe-commentary
+{
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  margin-bottom: 8px;
+  margin-right: 8px;
+}
+
+.chart-title {
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 7px 10px 4px;
+}
+
+.chart-wrapper .chart-title:empty {
+  display: none;
+}
+
+.chart-wrapper .chart-stage {
+  overflow: hidden;
+  padding: 5px 10px;
+  position: relative;
+}
+
+.chart-wrapper .chart-notes {
+  background: #fbfbfb;
+  border-top: 1px solid #e2e2e2;
+  color: #808080;
+  font-size: 12px;
+  padding: 8px 10px 5px;
+}
+
+/*
+ CSS for handling flexbox layout
+*/
+
+#dashboard-container {
+  visibility: hidden;
+}
+
+.tab-content>.dashboard-page-wrapper.active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dashboard-page-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.dashboard-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-row-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.dashboard-column-orientation {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dashboard-column {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-wrapper-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.chart-stage-flex {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  position: relative;
+}
+
+.chart-shim {
+  position: absolute;
+  left: 8px; top: 8px; right: 8px; bottom: 8px;
+}
+
+.no-padding .chart-shim {
+  left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.flowing-content-shim {
+  overflow: auto;
+  left: 0; top: 0; right: 0; bottom: 0;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.flowing-content-container {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.chart-stage .table-bordered {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > th,
+.chart-stage .table-bordered > tfoot > tr > th,
+.chart-stage .table-bordered > tbody > tr > td,
+.chart-stage .table-bordered > tfoot > tr > td {
+  border: none;
+}
+
+.chart-stage .table-bordered > tbody > tr > td {
+  border-top: 1px solid #dddddd;
+}
+
+.chart-stage .table-bordered > thead > tr > th {
+  border: none;
+  border-bottom: 2px solid #dddddd;
+}
+
+.bootstrap-table table>thead {
+  background-color: #fff;
+}
+
+.bootstrap-table table.data,
+.bootstrap-table table.shiny-table {
+  width: inherit !important;
+}
+
+.bootstrap-table table.data>tbody>tr>th,
+.bootstrap-table table.shiny-table>tbody>tr>th {
+  border-top: none;
+  border-bottom: 2px solid #dddddd;
+  padding: 5px;
+}
+
+.bootstrap-table .data td[align=right] {
+  font-family: inherit;
+}
+
+.chart-wrapper form {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.shiny-input-container label {
+  font-weight: normal;
+}
+
+.chart-stage .html-widget {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .html-widget-static-bound {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-stage .shiny-bound-output {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Omit display of empty paragraphs */
+
+.chart-shim>p:empty {
+  display: none;
+}
+
+.chart-stage>p:empty {
+  display: none;
+}
+
+/* Omit display of special knitr options div*/
+
+.chart-stage .knitr-options {
+  display: none;
+}
+
+/* Automatically resizing images */
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+}
+
+.image-container img {
+  opacity: 0;
+  overflow: hidden;
+}
+
+/* Value box */
+
+.value-box {
+  border-radius: 2px;
+  position: relative;
+  display: block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.value-box > .inner {
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.value-box .value {
+  font-size: 38px;
+  font-weight: bold;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.value-box .caption {
+  font-size: 15px;
+}
+.value-box .caption > small {
+  display: block;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.value-box .icon i {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 80px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.linked-value:hover {
+  cursor: pointer;
+}
+
+.value-box.linked-value:hover {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* STORYBOARD */
+
+.storyboard-nav button {
+  background: transparent;
+  border: 0;
+  opacity: .3;
+  outline: none;
+  padding: 0;
+}
+
+.storyboard-nav button:hover,
+.storyboard-nav button:hover {
+  opacity: .5;
+}
+
+.storyboard-nav button:disabled,
+.storyboard-nav button:disabled {
+  opacity: .1;
+}
+
+.storyboard-nav .sbnext,
+.storyboard-nav .sbprev {
+  float: left;
+  width: 2%;
+  height: 120px;
+  font-size: 50px;
+}
+
+.storyboard-nav .sbprev {
+  text-align: left;
+  width: 2%;
+}
+
+.storyboard-nav .sbnext {
+  float: right;
+  text-align: right;
+  margin-right: 8px;
+}
+
+.storyboard-nav .sbframelist {
+  margin: 0 auto;
+  width: 94%;
+  height: 120px;
+  overflow: hidden;
+  text-shadow: none;
+  margin-bottom: 8px;
+}
+
+.storyboard-nav .sbframelist ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.storyboard-nav .sbframelist ul li {
+  float: left;
+  width: 270px;
+  height: 100%;
+  padding: 10px 10px 10px 10px;
+  margin-right: 8px;
+  background: #fff;
+  border: 1px solid #e2e2e2;
+  border-radius: 3px;
+  color: #3a3c47;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.storyboard-nav .sbframelist ul li:last-child {
+  margin-right: 0px;
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  color: #fff;
+  background: #B8B8B8;
+}
+
+.sbframe-commentary {
+  width: 300px;
+  background: #fbfbfb;
+  font-size: 14px;
+}
+
+.sbframe-commentary ul {
+  padding-left: 22px;
+}
+
+.sbframe.active {
+  display: flex;
+}
+
+.sbframe:not(.active) {
+  display: none;
+}
+
+/* NAV TABS */
+
+.nav-tabs-custom > .nav-tabs {
+  margin: 0;
+  border-bottom: 1px solid #d7d7d7;
+  color: #666;
+  font-size: 14px;
+  font-weight: 300;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+.nav-tabs-custom > .nav-tabs > li {
+  border-top: 3px solid transparent;
+  margin-bottom: -1px;
+  margin-right: 5px;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  color: #666;
+  font-weight: 300;
+  font-size: 14px;
+  border-radius: 0;
+  padding: 3px 10px 5px;
+  text-transform: none;
+}
+
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a {
+  border-bottom-color: transparent;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a.text-muted {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  background: transparent;
+  margin: 0;
+}
+.nav-tabs-custom > .nav-tabs > li > a:hover {
+  color: #999;
+}
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:hover,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:focus,
+.nav-tabs-custom > .nav-tabs > li:not(.active) > a:active {
+  border-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: #3c8dbc;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a,
+.nav-tabs-custom > .nav-tabs > li.active:hover > a {
+  background-color: #fff;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.active > a {
+  border-top-color: transparent;
+  border-left-color: #d7d7d7;
+  border-right-color: #d7d7d7;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type {
+  margin-left: 0;
+}
+.nav-tabs-custom > .nav-tabs > li:first-of-type.active > a {
+  border-left-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs.pull-right {
+  float: none !important;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li {
+  float: right;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type {
+  margin-right: 0;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type > a {
+  border-left-width: 1px;
+}
+.nav-tabs-custom > .nav-tabs.pull-right > li:first-of-type.active > a {
+  border-left-color: #d7d7d7;
+  border-right-color: transparent;
+}
+.nav-tabs-custom > .nav-tabs > li.header {
+  line-height: 35px;
+  padding: 0 10px;
+  font-size: 20px;
+  color: #666;
+}
+.nav-tabs-custom > .nav-tabs > li.header > .fa,
+.nav-tabs-custom > .nav-tabs > li.header > .glyphicon,
+.nav-tabs-custom > .nav-tabs > li.header > .ion {
+  margin-right: 5px;
+}
+.nav-tabs-custom > .tab-content {
+  background: #fff;
+  padding: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom > .tab-content > .chart-wrapper {
+  background: #fff;
+  border: none;
+  margin: 0;
+}
+
+
+.nav-tabs-custom > .tab-content > .active {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.nav-tabs-custom .dropdown.open > a:active,
+.nav-tabs-custom .dropdown.open > a:focus {
+  background: transparent;
+  color: #999;
+}
+
+
+@media (max-width: 767px) {
+  .value-box {
+    text-align: center;
+    margin-right: 8px;
+  }
+  .value-box .icon {
+    display: none;
+  }
+}
+
+/* Fixed position sidebar */
+
+.section.sidebar {
+  position: fixed;
+  top: 51px; /* overridden by theme */
+  left: 0;
+  bottom: 0;
+  border-right: 1px solid #e2e2e2;
+  background-color: white; /* overridden by theme */
+  padding-left: 10px;
+  padding-right: 10px;
+  visibility: hidden;
+  overflow: auto;
+}
+
+.section.sidebar form p:first-child {
+  margin-top: 10px;
+}
+
+/* Embedded source code */
+
+#flexdashboard-source-code {
+  display: none;
+}
+
+.featherlight-content #flexdashboard-source-code {
+  display: inline-block;
+}
+
+.featherlight-content {
+  width: 80%;
+  max-width: 800px;
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+.featherlight:last-of-type {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.featherlight-inner {
+  width: 100%;
+}
+
+.featherlight-content pre {
+  margin: 0;
+  border: 0;
+  background: #fff;
+  font-size: 12px;
+}
+
+.unselectable {
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+#flexdashboard-source-code code {
+  -ms-user-select: text;
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -o-user-select: text;
+  user-select: text;
+}
+
+/* DataTables Tweaks */
+
+.dataTables_filter input[type="search"] {
+  -webkit-appearance: searchfield;
+  outline: none;
+}
+
+.dataTables_wrapper.no-footer
+.dataTables_info {
+  padding-top: 0;
+}
+
+
+table.dataTable thead th {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+/* Mobile phone only CSS */
+
+.desktop-layout div.section.mobile {
+  display: none;
+}
+
+.mobile-layout div.section.no-mobile {
+  display: none;
+}
+
+.mobile-figure {
+  display: none;
+}
+
+
+
+body {
+  padding-top: 60px;
+}
+
+.section.sidebar {
+  top: 51px;
+  background-color: rgba(39, 128, 227, 0.1);
+}
+
+.value-box {
+  color: #f9f9f9;
+}
+
+.bg-primary {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.storyboard-nav .sbframelist ul li.active {
+  background-color: rgba(39, 128, 227, 0.7);
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+  border-top-color: rgba(39, 128, 227, 0.7);
+}
+
+.bg-info {
+  background-color: rgba(153, 84, 187, 0.7);
+}
+
+.bg-warning {
+  background-color: rgba(255, 117, 24, 0.7);
+}
+
+.bg-danger {
+  background-color: rgba(255, 0, 57, 0.7);
+}
+
+.bg-success {
+  background-color: rgba(63, 182, 24, 0.7);
+}
+
+.chart-title {
+  font-weight: 500;
+}
+
+.nav-tabs-custom > .nav-tabs > li > a,
+.nav-tabs-custom > .nav-tabs > li > a:active {
+  font-weight: 500;
+}
+
+@media only screen and (min-width: 768px) {
+html, body {
+  height: 100%;
+}
+
+#dashboard-container {
+  height: 100%;
+}
+}
+</style>
+
+
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+<div class="navbar-header">
+
+<button id="navbar-button" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+
+<span class="navbar-logo pull-left">
+  
+</span>
+<span class="navbar-brand">
+  rbokeh iris dataset
+  <span class="navbar-author">
+    Ryan Hafen
+    </span>
+</span>
+
+</div>
+<div id="navbar" class="navbar-collapse collapse">
+<ul class="nav navbar-nav navbar-left">
+</ul>
+<ul class="nav navbar-nav navbar-right">
+</ul>
+</div><!--/.nav-collapse-->
+</div><!--/.container-->
+</div><!--/.navbar-->
+
+<script type="text/javascript">
+
+
+var FlexDashboard = (function () {
+
+  // initialize options
+  var _options = {};
+
+  var FlexDashboard = function() {
+
+    // default options
+    _options = $.extend(_options, {
+      theme: "cosmo",
+      fillPage: false,
+      orientation: 'columns',
+      storyboard: false,
+      defaultFigWidth: 576,
+      defaultFigHeight: 461,
+      defaultFigWidthMobile: 360,
+      defaultFigHeightMobile: 461,
+      isMobile: false,
+      isPortrait: false,
+      resize_reload: true
+    });
+  };
+
+  function init(options) {
+
+    // extend default options
+    $.extend(true, _options, options);
+
+    // add ids to sections that don't have them (pandoc won't assign ids
+    // to e.g. sections with titles consisting of only chinese characters)
+    var nextId = 1;
+    $('.level1:not([id]),.level2:not([id]),.level3:not([id])').each(function() {
+      $(this).attr('id', 'dashboard-' + nextId++);
+    });
+
+    // find navbar items
+    var navbarItems = $('#flexdashboard-navbar');
+    if (navbarItems.length)
+      navbarItems = JSON.parse(navbarItems.html());
+    addNavbarItems(navbarItems);
+
+    // find the main dashboard container
+    var dashboardContainer = $('#dashboard-container');
+
+    // resolve mobile classes
+    resolveMobileClasses(dashboardContainer);
+
+    // one time global initialization for components
+    componentsInit(dashboardContainer);
+
+    // look for a global sidebar
+    var globalSidebar = dashboardContainer.find(".section.level1.sidebar");
+    if (globalSidebar.length > 0) {
+
+      // global layout for fullscreen displays
+      if (!isMobilePhone()) {
+
+         // hoist it up to the top level
+         globalSidebar.insertBefore(dashboardContainer);
+
+         // lay it out (set width/positions)
+         layoutSidebar(globalSidebar, dashboardContainer);
+
+      // tuck sidebar into first page for mobile phones
+      } else {
+
+        // convert it into a level3 section
+        globalSidebar.removeClass('sidebar');
+        globalSidebar.removeClass('level1');
+        globalSidebar.addClass('level3');
+        var h1 = globalSidebar.children('h1');
+        var h3 = $('<h3></h3>');
+        h3.append(h1.contents());
+        h3.insertBefore(h1);
+        h1.detach();
+
+        // move it into the first page
+        var page = dashboardContainer.find('.section.level1').first();
+        if (page.length > 0)
+          page.prepend(globalSidebar);
+      }
+    }
+
+    // look for pages to layout
+    var pages = $('div.section.level1');
+    if (pages.length > 0) {
+
+        // find the navbar and collapse on clicked
+        var navbar = $('#navbar');
+        navbar.on("click", "a[data-toggle!=dropdown]", null, function () {
+           navbar.collapse('hide');
+        });
+
+        // envelop the dashboard container in a tab content div
+        dashboardContainer.wrapInner('<div class="tab-content"></div>');
+
+        pages.each(function(index) {
+
+          // lay it out
+          layoutDashboardPage($(this));
+
+          // add it to the navbar
+          addToNavbar($(this), index === 0);
+
+        });
+
+    } else {
+
+      // remove the navbar and navbar button if we don't
+      // have any navbuttons
+      if (navbarItems.length === 0) {
+        $('#navbar').remove();
+        $('#navbar-button').remove();
+      }
+
+      // add the storyboard class if requested
+      if (_options.storyboard)
+        dashboardContainer.addClass('storyboard');
+
+      // layout the entire page
+      layoutDashboardPage(dashboardContainer);
+    }
+
+    // if we are in shiny we need to trigger a window resize event to
+    // force correct layout of shiny-bound-output elements
+    if (isShinyDoc())
+      $(window).trigger('resize');
+
+    // make main components visible
+    $('.section.sidebar').css('visibility', 'visible');
+    dashboardContainer.css('visibility', 'visible');
+
+    // handle location hash
+    handleLocationHash();
+
+    // intialize prism highlighting
+    initPrismHighlighting();
+
+    // record mobile and orientation state then register a handler
+    // to refresh if resize_reload is set to true and it changes
+    _options.isMobile = isMobilePhone();
+    _options.isPortrait = isPortrait();
+    if (_options.resize_reload) {
+      $(window).on('resize', function() {
+        if (_options.isMobile !== isMobilePhone() ||
+            _options.isPortrait !== isPortrait()) {
+          window.location.reload();
+        }
+      });
+    } else {
+      // if in desktop mode and resizing to mobile, make sure the heights are 100%
+      // This enforces what `fillpage.css` does for "wider" pages.
+      // Since we are not reloading once the page becomes small, we need to force the height to 100%
+      // This is a new situation introduced when `_options.resize_reload` is `false`
+      if (! _options.isMobile) {
+        // only add if `fillpage.css` was added in the first place
+        if (_options.fillPage) {
+          // fillpage.css
+          $("html,body,#dashboard").css("height", "100%");
+        }
+      }
+    }
+    // trigger layoutcomplete event
+    dashboardContainer.trigger('flexdashboard:layoutcomplete');
+  }
+
+  function resolveMobileClasses(dashboardContainer) {
+     // add top level layout class
+    dashboardContainer.addClass(isMobilePhone() ? 'mobile-layout' :
+                                                  'desktop-layout');
+
+    // look for .mobile sections and add .no-mobile to their peers
+    var mobileSections = $('.section.mobile');
+    mobileSections.each(function() {
+       var id = $(this).attr('id');
+       var nomobileId = id.replace(/-\d+$/, '');
+       $('#' + nomobileId).addClass('no-mobile');
+    });
+  }
+
+  function addNavbarItems(navbarItems) {
+
+    var navbarLeft = $('ul.navbar-left');
+    var navbarRight = $('ul.navbar-right');
+
+    for (var i = 0; i<navbarItems.length; i++) {
+
+      // get the item
+      var item = navbarItems[i];
+
+      // determine the container
+      var container = null;
+      if (item.align === "left")
+        container = navbarLeft;
+      else
+        container = navbarRight;
+
+      // navbar menu if we have multiple items
+      if (item.items) {
+        var menu = navbarMenu(null, item.icon, item.title, container);
+        for (var j = 0; j<item.items.length; j++) {
+          var subItem = item.items[j];
+          var li = $('<li></li>');
+          li.append(navbarLink(subItem.icon, subItem.title, subItem.href, subItem.target));
+          menu.append(li);
+        }
+      } else {
+        var li = $('<li></li>');
+        li.append(navbarLink(item.icon, item.title, item.href, item.target));
+        container.append(li);
+      }
+    }
+  }
+
+  // create or get a reference to an existing dropdown menu
+  function navbarMenu(id, icon, title, container) {
+    var existingMenu = [];
+    if (id)
+      existingMenu = container.children('#' + id);
+    if (existingMenu.length > 0) {
+      return existingMenu.children('ul');
+    } else {
+      var li = $('<li></li>');
+      if (id)
+        li.attr('id', id);
+      li.addClass('dropdown');
+      // auto add "Share" title on mobile if necessary
+      if (!title && icon && (icon === "fa-share-alt") && isMobilePhone())
+        title = "Share";
+      if (title) {
+        title = title + ' <span class="caret"></span>';
+      }
+      var a = navbarLink(icon, title, "#");
+      a.addClass('dropdown-toggle');
+      a.attr('data-toggle', 'dropdown');
+      a.attr('role', 'button');
+      a.attr('aria-expanded', 'false');
+      li.append(a);
+      var ul = $('<ul class="dropdown-menu"></ul>');
+      ul.attr('role', 'menu');
+      li.append(ul);
+      container.append(li);
+      return ul;
+    }
+  }
+
+  function addToNavbar(page, active) {
+
+    // capture the id and data-icon attribute (if any)
+    var id = page.attr('id');
+    var icon = page.attr('data-icon');
+    var navmenu = page.attr('data-navmenu');
+
+    // get hidden state (transfer this to navbar)
+    var hidden = page.hasClass('hidden');
+    page.removeClass('hidden');
+
+    // sanitize the id for use with bootstrap tabs
+    id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+    page.attr('id', id);
+
+    // get the wrapper
+    var wrapper = page.closest('.dashboard-page-wrapper');
+
+    // move the id to the wrapper
+    page.removeAttr('id');
+    wrapper.attr('id', id);
+
+    // add the tab-pane class to the wrapper
+    wrapper.addClass('tab-pane');
+    if (active)
+      wrapper.addClass('active');
+
+    // get a reference to the h1, discover its inner contens, then detach it
+    var h1 = wrapper.find('h1').first();
+    var title = h1.contents();
+    h1.detach();
+
+    // create a navbar item
+    var li = $('<li></li>');
+    var a = navbarLink(icon, title, '#' + id);
+    a.attr('data-toggle', 'tab');
+    li.append(a);
+
+    // add it to the navbar (or navbar menu if specified)
+    var container = $('ul.navbar-left');
+    if (navmenu) {
+      var menuId = navmenu.replace(/\s+/g, '');
+      var menu = navbarMenu(menuId, null, navmenu, container);
+      menu.append(li);
+    } else {
+      container.append(li);
+    }
+
+    // hide it if requested
+    if (hidden)
+      li.addClass('hidden');
+  }
+
+  function navbarLink(icon, title, href, target) {
+
+    var a = $('<a></a>');
+    if (icon) {
+
+      // get the name of the icon set and icon
+      var dashPos = icon.indexOf("-");
+      var iconSet = null;
+      var iconSplit = icon.split(" ");
+      if (iconSplit.length > 1) {
+        iconSet = iconSplit[0];
+        icon = iconSplit.slice(1).join(" ");
+      } else {
+        iconSet = icon.substring(0, dashPos);
+      }
+      var iconName = icon.substring(dashPos + 1);
+
+      // create the icon
+      var iconElement = $('<span class="' + iconSet + ' ' + icon + '"></span>');
+      if (title)
+        iconElement.css('margin-right', '7px');
+      a.append(iconElement);
+      // if href is null see if we can auto-generate based on icon (e.g. social)
+      if (!href)
+        maybeGenerateLinkFromIcon(iconName, a);
+    }
+    if (title)
+      a.append(title);
+
+    // add the href.
+    if (href) {
+      if (href === "source_embed") {
+        a.attr('href', '#');
+        a.attr('data-featherlight', "#flexdashboard-source-code");
+        a.featherlight({
+            beforeOpen: function(event){
+              $('body').addClass('unselectable');
+            },
+            afterClose: function(event){
+              $('body').removeClass('unselectable');
+            }
+        });
+      } else {
+        a.attr('href', href);
+      }
+    }
+
+    // add the arget
+    if (target)
+      a.attr('target', target);
+
+    return a;
+  }
+
+  // auto generate a link from an icon name (e.g. twitter) when possible
+  function maybeGenerateLinkFromIcon(iconName, a) {
+
+     var serviceLinks = {
+      "twitter": "https://twitter.com/share?text=" + encodeURIComponent(document.title) + "&url="+encodeURIComponent(location.href),
+      "facebook": "https://www.facebook.com/sharer/sharer.php?s=100&p[url]="+encodeURIComponent(location.href),
+      "google-plus": "https://plus.google.com/share?url="+encodeURIComponent(location.href),
+      "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url="+encodeURIComponent(location.href) + "&title=" + encodeURIComponent(document.title),
+      "pinterest": "https://pinterest.com/pin/create/link/?url="+encodeURIComponent(location.href) + "&description=" + encodeURIComponent(document.title)
+    };
+
+    var makeSocialLink = function(a, href) {
+      a.attr('href', '#');
+      a.on('click', function(e) {
+        e.preventDefault();
+        window.open(href);
+      });
+    };
+
+    $.each(serviceLinks, function(key, value) {
+      if (iconName.indexOf(key) !== -1)
+        makeSocialLink(a, value);
+    });
+  }
+
+  // layout a dashboard page
+  function layoutDashboardPage(page) {
+
+    // use a page wrapper so that free form content above the
+    // dashboard appears at the top rather than the side (as it
+    // would without the wrapper in a column orientation)
+    var wrapper = $('<div class="dashboard-page-wrapper"></div>');
+    page.wrap(wrapper);
+
+    // if there are no level2 or level3 headers synthesize a level3
+    // header to contain the (e.g. frame it, scroll container, etc.)
+    var headers = page.find('h2,h3');
+    if (headers.length === 0)
+      page.wrapInner('<div class="section level3"></div>');
+
+    // hoist up any content before level 2 or level 3 headers
+    var children = page.children();
+    children.each(function(index) {
+      if ($(this).hasClass('level2') || $(this).hasClass('level3'))
+        return false;
+      $(this).insertBefore(page);
+    });
+
+    // determine orientation and fillPage behavior for distinct media
+    var orientation, fillPage, storyboard;
+
+    // media: mobile phone
+    if (isMobilePhone()) {
+
+      // if there is a sidebar we need to ensure it's content
+      // is properly framed as an h3
+      var sidebar = page.find('.section.sidebar');
+      sidebar.removeClass('sidebar');
+      sidebar.wrapInner('<div class="section level3"></div>');
+      var h2 = sidebar.find('h2');
+      var h3 = $('<h3></h3>');
+      h3.append(h2.contents());
+      h3.insertBefore(h2);
+      h2.detach();
+
+      // wipeout h2 elements then enclose them in a single h2
+      var level2 = page.find('div.section.level2');
+      level2.each(function() {
+        level2.children('h2').remove();
+        level2.children().unwrap();
+      });
+      page.wrapInner('<div class="section level2"></div>');
+
+      // substitute mobile images
+      if (isPortrait()) {
+        var mobileFigures = $('img.mobile-figure');
+        mobileFigures.each(function() {
+          // get the src (might be base64 encoded)
+          var src = $(this).attr('src');
+
+          // find it's peer
+          var id = $(this).attr('data-mobile-figure-id');
+          var img = $('img[data-figure-id=' + id + "]");
+          img.attr('src', src)
+             .attr('width', _options.defaultFigWidthMobile)
+             .attr('height', _options.defaultFigHeightMobile);
+        });
+      }
+
+      // hoist storyboard commentary into it's own section
+      if (page.hasClass('storyboard')) {
+        var commentaryHR = page.find('div.section.level3 hr');
+        commentaryHR.each(function() {
+          var commentary = $(this).nextAll().detach();
+          var commentarySection = $('<div class="section level3"></div>');
+          commentarySection.append(commentary);
+          commentarySection.insertAfter($(this).closest('div.section.level3'));
+          $(this).remove();
+        });
+      }
+
+      // force a non full screen layout by columns
+      orientation = _options.orientation = 'columns';
+      fillPage = _options.fillPage = false;
+      storyboard = _options.storyboard = false;
+
+    // media: desktop
+    } else {
+
+      // determine orientation
+      orientation = page.attr('data-orientation');
+      if (orientation !== 'rows' && orientation != 'columns')
+        orientation = _options.orientation;
+
+      // determine storyboard mode
+      storyboard = page.hasClass('storyboard');
+
+      // fillPage based on options (force for storyboard)
+      fillPage = _options.fillPage || storyboard;
+
+      // handle sidebar
+      var sidebar = page.find('.section.level2.sidebar');
+      if (sidebar.length > 0)
+        layoutSidebar(sidebar, page);
+    }
+
+    // give it and it's parent divs height: 100% if we are in fillPage mode
+    if (fillPage) {
+      page.addClass('vertical-layout-fill');
+      page.css('height', '100%');
+      page.parents('div').css('height', '100%');
+    } else {
+      page.addClass('vertical-layout-scroll');
+    }
+
+    // perform the layout
+    if (storyboard)
+      layoutPageAsStoryboard(page);
+    else if (orientation === 'rows')
+      layoutPageByRows(page, fillPage);
+    else if (orientation === 'columns')
+      layoutPageByColumns(page, fillPage);
+  }
+
+  function layoutSidebar(sidebar, content) {
+
+    // get it out of the header hierarchy
+    sidebar = sidebar.first();
+    if (sidebar.hasClass('level1')) {
+      sidebar.removeClass('level1');
+      sidebar.children('h1').remove();
+    } else if (sidebar.hasClass('level2')) {
+      sidebar.removeClass('level2');
+      sidebar.children('h2').remove();
+    }
+
+    // determine width
+    var sidebarWidth = isTablet() ? 220 : 250;
+    var dataWidth = parseInt(sidebar.attr('data-width'));
+    if (dataWidth)
+      sidebarWidth = dataWidth;
+
+    // set the width and shift the page right to accomodate the sidebar
+    sidebar.css('width', sidebarWidth + 'px');
+    content.css('padding-left', sidebarWidth + 'px');
+
+    // wrap it's contents in a form
+    sidebar.wrapInner($('<form></form>'));
+  }
+
+  function layoutPageAsStoryboard(page) {
+
+    // create storyboard navigation
+    var nav = $('<div class="storyboard-nav"></div>');
+
+    // add navigation buttons
+    var prev = $('<button class="sbprev"><i class="fa fa-angle-left"></i></button>');
+    nav.append(prev);
+    var next= $('<button class="sbnext"><i class="fa fa-angle-right"></i></button>');
+    nav.append(next);
+
+    // add navigation frame
+    var frameList = $('<div class="sbframelist"></div>');
+    nav.append(frameList);
+    var ul = $('<ul></ul>');
+    frameList.append(ul);
+
+     // find all the level3 sections (those are the storyboard frames)
+    var frames = page.find('div.section.level3');
+    frames.each(function() {
+
+      // mark it
+      $(this).addClass('sbframe');
+
+      // divide it into chart content and (optional) commentary
+      $(this).addClass('dashboard-column-orientation');
+
+      // stuff the chart into it's own div w/ flex
+      $(this).wrapInner('<div class="sbframe-component"></div>');
+      setFlex($(this), 1);
+      var frame = $(this).children('.sbframe-component');
+
+      // extract the title from the h3
+      var li = $('<li></li>');
+      var h3 = frame.children('h3');
+      li.append(h3.contents());
+      h3.detach();
+      ul.append(li);
+
+      // extract commentary
+      var hr = frame.children('hr');
+      if (hr.length) {
+        var commentary = hr.nextAll().detach();
+        hr.remove();
+        var commentaryFrame = $('<div class="sbframe-commentary"></div>');
+        commentaryFrame.addClass('flowing-content-shim');
+        commentaryFrame.addClass('flowing-content-container');
+        commentaryFrame.append(commentary);
+        $(this).append(commentaryFrame);
+
+        // look for a data-commentary-width attribute
+        var commentaryWidth = $(this).attr('data-commentary-width');
+        if (commentaryWidth)
+          commentaryFrame.css('width', commentaryWidth + 'px');
+      }
+
+      // layout the chart (force flex)
+      var result = layoutChart(frame, true);
+
+      // ice the notes if there are none
+      if (!result.notes)
+        frame.find('.chart-notes').remove();
+
+      // set flex on chart
+      setFlex(frame, 1);
+    });
+
+    // create a div to hold all the frames
+    var frameContent = $('<div class="sbframe-content"></div>');
+    frameContent.addClass('dashboard-row-orientation');
+    frameContent.append(frames.detach());
+
+    // row orientation to stack nav and frame content
+    page.addClass('dashboard-row-orientation');
+    page.append(nav);
+    page.append(frameContent);
+    setFlex(frameContent, 1);
+
+    // initialize sly
+    var sly = new Sly(frameList, {
+    		horizontal: true,
+    		itemNav: 'basic',
+    		smart: true,
+    		activateOn: 'click',
+    		startAt: 0,
+    		scrollBy: 1,
+    		activatePageOn: 'click',
+    		speed: 200,
+    		moveBy: 600,
+    		dragHandle: true,
+    		dynamicHandle: true,
+    		clickBar: true,
+    		keyboardNavBy: 'items',
+    		next: next,
+    		prev: prev
+    	}).init();
+
+    // make first frame active
+    frames.removeClass('active');
+    frames.first().addClass('active');
+
+    // subscribe to frame changed events
+    sly.on('active', function (eventName, itemIndex) {
+      frames.removeClass('active');
+      frames.eq(itemIndex).addClass('active')
+                          .trigger('shown');
+    });
+  }
+
+  function layoutPageByRows(page, fillPage) {
+
+    // row orientation
+    page.addClass('dashboard-row-orientation');
+
+    // find all the level2 sections (those are the rows)
+    var rows = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (rows.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      rows = page.find('div.section.level2');
+    }
+
+    rows.each(function () {
+
+      // flags
+      var haveNotes = false;
+      var haveFlexHeight = true;
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // give it row layout semantics if it's not a tabset
+      if (!isTabset)
+        $(this).addClass('dashboard-row');
+
+      // find all of the level 3 subheads
+      var columns = $(this).find('div.section.level3');
+
+      // determine figureSizes sizes
+      var figureSizes = chartFigureSizes(columns);
+
+      // fixup the columns
+      columns.each(function(index) {
+
+        // layout the chart (force flex if we are in a tabset)
+        var result = layoutChart($(this), isTabset);
+
+        // update flexHeight state
+        if (!result.flex)
+          haveFlexHeight = false;
+
+        // update state
+        if (result.notes)
+          haveNotes = true;
+
+        // set the column flex based on the figure width
+        // (value boxes will just get the default figure width)
+        var chartWidth = figureSizes[index].width;
+        setFlex($(this), chartWidth + ' ' + chartWidth + ' 0px');
+
+      });
+
+      // remove empty chart note divs
+      if (isTabset)
+        $(this).find('.chart-notes').filter(function() {
+            return $(this).html() === "&nbsp;";
+        }).remove();
+      if (!haveNotes)
+        $(this).find('.chart-notes').remove();
+
+       // make it a flexbox row
+      if (haveFlexHeight)
+        $(this).addClass('dashboard-row-flex');
+
+      // now we can set the height on all the wrappers (based on maximum
+      // figure height + room for title and notes, or data-height on the
+      // container if specified). However, don't do this if there is
+      // no flex on any of the constituent columns
+      var flexHeight = null;
+      var dataHeight = parseInt($(this).attr('data-height'));
+      if (dataHeight)
+        flexHeight = adjustedHeight(dataHeight, columns.first());
+      else if (haveFlexHeight)
+        flexHeight = maxChartHeight(figureSizes, columns);
+      if (flexHeight) {
+        if (fillPage)
+          setFlex($(this), flexHeight + ' ' + flexHeight + ' 0px');
+        else {
+          $(this).css('height', flexHeight + 'px');
+          setFlex($(this), '0 0 ' + flexHeight + 'px');
+        }
+      }
+
+    });
+  }
+
+  function layoutPageByColumns(page, fillPage) {
+
+    // column orientation
+    page.addClass('dashboard-column-orientation');
+
+    // find all the level2 sections (those are the columns)
+    var columns = page.find('div.section.level2');
+
+    // if there are no level2 sections then treat the
+    // entire page as if it's a level 2 section
+    if (columns.length === 0) {
+      page.wrapInner('<div class="section level2"></div>');
+      columns = page.find('div.section.level2');
+    }
+
+    // layout each column
+    columns.each(function (index) {
+
+      // remove the h2
+      $(this).children('h2').remove();
+
+      // make it a flexbox column
+      $(this).addClass('dashboard-column');
+
+      // check for a tabset
+      var isTabset = $(this).hasClass('tabset');
+      if (isTabset)
+        layoutTabset($(this));
+
+      // find all the h3 elements
+      var rows = $(this).find('div.section.level3');
+
+      // get the figure sizes for the rows
+      var figureSizes = chartFigureSizes(rows);
+
+      // column flex is the max row width (or data-width if specified)
+      var flexWidth;
+      var dataWidth = parseInt($(this).attr('data-width'));
+      if (dataWidth)
+        flexWidth = dataWidth;
+      else
+        flexWidth = maxChartWidth(figureSizes);
+      setFlex($(this), flexWidth + ' ' + flexWidth + ' 0px');
+
+      // layout each chart
+      rows.each(function(index) {
+
+        // perform the layout
+        var result = layoutChart($(this), false);
+
+        // ice the notes if there are none
+        if (!result.notes)
+          $(this).find('.chart-notes').remove();
+
+        // set flex height based on figHeight, then adjust
+        if (result.flex) {
+          var chartHeight = figureSizes[index].height;
+          chartHeight = adjustedHeight(chartHeight, $(this));
+          if (fillPage)
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' 0px');
+          else {
+            $(this).css('height', chartHeight + 'px');
+            setFlex($(this), chartHeight + ' ' + chartHeight + ' ' + chartHeight + 'px');
+          }
+        }
+      });
+    });
+  }
+
+  function chartFigureSizes(charts) {
+
+    // sizes
+    var figureSizes = new Array(charts.length);
+
+    // check each chart
+    charts.each(function(index) {
+
+      // start with default
+      figureSizes[index] = {
+        width: _options.defaultFigWidth,
+        height: _options.defaultFigHeight
+      };
+
+      // look for data-height or data-width then knit options
+      var dataWidth = parseInt($(this).attr('data-width'));
+      var dataHeight = parseInt($(this).attr('data-height'));
+      var knitrOptions = $(this).find('.knitr-options:first');
+      var knitrWidth, knitrHeight;
+      if (knitrOptions) {
+        knitrWidth = parseInt(knitrOptions.attr('data-fig-width'));
+        knitrHeight =  parseInt(knitrOptions.attr('data-fig-height'));
+      }
+
+      // width
+      if (dataWidth)
+        figureSizes[index].width = dataWidth;
+      else if (knitrWidth)
+        figureSizes[index].width = knitrWidth;
+
+      // height
+      if (dataHeight)
+        figureSizes[index].height = dataHeight;
+      else if (knitrHeight)
+        figureSizes[index].height = knitrHeight;
+    });
+
+    // return sizes
+    return figureSizes;
+  }
+
+  function maxChartHeight(figureSizes, charts) {
+
+    // first compute the maximum height
+    var maxHeight = _options.defaultFigHeight;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].height > maxHeight)
+        maxHeight = figureSizes[i].height;
+
+    // now add offests for chart title and chart notes
+    if (charts.length)
+      maxHeight = adjustedHeight(maxHeight, charts.first());
+
+    return maxHeight;
+  }
+
+  function adjustedHeight(height, chart) {
+    if (chart.length > 0) {
+      var chartTitle = chart.find('.chart-title');
+      if (chartTitle.length)
+        height += chartTitle.first().outerHeight();
+      var chartNotes = chart.find('.chart-notes');
+      if (chartNotes.length)
+        height += chartNotes.first().outerHeight();
+    }
+    return height;
+  }
+
+  function maxChartWidth(figureSizes) {
+    var maxWidth = _options.defaultFigWidth;
+    for (var i = 0; i<figureSizes.length; i++)
+      if (figureSizes[i].width > maxWidth)
+        maxWidth = figureSizes[i].width;
+    return maxWidth;
+  }
+
+  // layout a chart
+  function layoutChart(chart, forceFlex) {
+
+    // state to return
+    var result = {
+      notes: false,
+      flex: false
+    };
+
+    // extract the title
+    var title = extractTitle(chart);
+
+    // find components that apply to this container
+    var components = componentsFind(chart);
+
+    // if it's a custom component then call it and return
+    var customComponents = componentsCustom(components);
+    if (customComponents.length) {
+      componentsLayout(customComponents, title, chart);
+      result.notes = false;
+      result.flex = forceFlex || componentsFlex(customComponents);
+      return result;
+    }
+
+    // put all the content in a chart wrapper div
+    chart.addClass('chart-wrapper');
+    chart.wrapInner('<div class="chart-stage"></div>');
+    var chartContent = chart.children('.chart-stage');
+
+    // flex the content if appropriate
+    result.flex = forceFlex || componentsFlex(components);
+    if (result.flex) {
+      // add flex classes
+      chart.addClass('chart-wrapper-flex');
+      chartContent.addClass('chart-stage-flex');
+
+      // additional shim to break out of flexbox sizing
+      chartContent.wrapInner('<div class="chart-shim"></div>');
+      chartContent = chartContent.children('.chart-shim');
+    }
+
+    // set custom data-padding attribute
+    var pad = chart.attr('data-padding');
+    if (pad) {
+      if (pad === "0")
+        chart.addClass('no-padding');
+      else {
+        pad = pad + 'px';
+        chartContent.css('left', pad)
+                    .css('top', pad)
+                    .css('right', pad)
+                    .css('bottom', pad)
+      }
+    }
+
+    // call compoents
+    componentsLayout(components, title, chartContent);
+
+    // also activate components on shiny output
+    findShinyOutput(chartContent).on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+
+          // see if we opted out of flex based on our output (for shiny
+          // we can't tell what type of output we have until after the
+          // value is bound)
+          var components = componentsFind(element);
+          var flex = forceFlex || componentsFlex(components);
+          if (!flex) {
+            chart.css('height', "");
+            setFlex(chart, "");
+            chart.removeClass('chart-wrapper-flex');
+            chartContent.removeClass('chart-stage-flex');
+            chartContent.children().unwrap();
+          }
+
+          // perform layout
+          componentsLayout(components, title, element.parent());
+        }, 10);
+      });
+
+    // add the title
+    var chartTitle = $('<div class="chart-title"></div>');
+    chartTitle.append(title);
+    chart.prepend(chartTitle);
+
+    // add the notes section
+    var chartNotes = $('<div class="chart-notes"></div>');
+    chartNotes.html('&nbsp;');
+    chart.append(chartNotes);
+
+    // attempt to extract notes if we have a component
+    if (components.length)
+      result.notes = extractChartNotes(chartContent, chartNotes);
+
+    // return result
+    return result;
+  }
+
+  // build a tabset from a section div with the .tabset class
+  function layoutTabset(tabset) {
+
+    // check for fade option
+    var fade = tabset.hasClass("tabset-fade");
+    var navClass = "nav-tabs";
+
+    // determine the heading level of the tabset and tabs
+    var match = tabset.attr('class').match(/level(\d) /);
+    if (match === null)
+      return;
+    var tabsetLevel = Number(match[1]);
+    var tabLevel = tabsetLevel + 1;
+
+    // find all subheadings immediately below
+    var tabs = tabset.find("div.section.level" + tabLevel);
+    if (!tabs.length)
+      return;
+
+    // create tablist and tab-content elements
+    var tabList = $('<ul class="nav ' + navClass + '" role="tablist"></ul>');
+    $(tabs[0]).before(tabList);
+    var tabContent = $('<div class="tab-content"></div>');
+    $(tabs[0]).before(tabContent);
+
+    // build the tabset
+    tabs.each(function(i) {
+
+      // get the tab div
+      var tab = $(tabs[i]);
+
+      // get the id then sanitize it for use with bootstrap tabs
+      var id = tab.attr('id');
+
+      // sanitize the id for use with bootstrap tabs
+      id = id.replace(/[.\/?&!#<>]/g, '').replace(/\s/g, '_');
+      tab.attr('id', id);
+
+      // get the heading element within it and grab it's text
+      var heading = tab.find('h' + tabLevel + ':first');
+      var headingDom = heading.contents();
+
+      // build and append the tab list item
+      var a = $('<a role="tab" data-toggle="tab"></a>');
+      a.append(headingDom);
+      a.attr('href', '#' + id);
+      a.attr('aria-controls', id);
+      var li = $('<li role="presentation"></li>');
+      li.append(a);
+      if (i === 0)
+        li.attr('class', 'active');
+      tabList.append(li);
+
+      // set it's attributes
+      tab.attr('role', 'tabpanel');
+      tab.addClass('tab-pane');
+      tab.addClass('tabbed-pane');
+      tab.addClass('no-title');
+      if (fade)
+        tab.addClass('fade');
+      if (i === 0) {
+        tab.addClass('active');
+        if (fade)
+          tab.addClass('in');
+      }
+
+      // move it into the tab content div
+      tab.detach().appendTo(tabContent);
+    });
+
+    // add nav-tabs-custom
+    tabset.addClass('nav-tabs-custom');
+
+    // internal layout is dashboard-column with tab-content flexing
+    tabset.addClass('dashboard-column');
+    setFlex(tabContent, 1);
+  }
+
+  // one time global initialization for components
+  function componentsInit(dashboardContainer) {
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.init)
+        component.init(dashboardContainer);
+    }
+  }
+
+  // find components that apply within a container
+  function componentsFind(container) {
+
+    // look for components
+    var components = [];
+    for (var i=0; i<window.FlexDashboardComponents.length; i++) {
+      var component = window.FlexDashboardComponents[i];
+      if (component.find(container).length)
+        components.push(component);
+    }
+
+    // if there were none then use a special flowing content component
+    // that just adds a scrollbar in fillPage mode
+    if (components.length == 0) {
+      components.push({
+        find: function(container) {
+          return container;
+        },
+
+        flex: function(fillPage) {
+          return fillPage;
+        },
+
+        layout: function(title, container, element, fillPage) {
+          if (fillPage) {
+            container.addClass('flowing-content-shim');
+            container.addClass('flowing-content-container');
+          }
+        }
+      });
+    }
+
+    return components;
+  }
+
+  // if there is a custom component then pick it out
+  function componentsCustom(components) {
+    var customComponent = [];
+    for (var i=0; i<components.length; i++)
+      if (components[i].type === "custom") {
+        customComponent.push(components[i]);
+        break;
+      }
+    return customComponent;
+  }
+
+  // query all components for flex
+  function componentsFlex(components) {
+
+    // no components at all means no flex
+    if (components.length === 0)
+      return false;
+
+    // otherwise query components (assume true unless we see false)
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++)
+      if (components[i].flex && !components[i].flex(_options.fillPage))
+        return false;
+    return true;
+  }
+
+  // layout all components
+  function componentsLayout(components, title, container) {
+    var isMobile = isMobilePhone();
+    for (var i=0; i<components.length; i++) {
+      var element = components[i].find(container);
+      if (components[i].layout) {
+        // call layout (don't call other components if it returns false)
+        var result = components[i].layout(title, container, element, _options.fillPage);
+        if (result === false)
+          return;
+      }
+    }
+  }
+
+  // get a reference to the h3, discover it's inner html, and remove it
+  function extractTitle(container) {
+    var h3 = container.children('h3').first();
+    var title = '';
+    if (!container.hasClass('no-title'))
+      title = h3.contents();
+    h3.detach();
+    return title;
+  }
+
+  // extract chart notes
+  function extractChartNotes(chartContent, chartNotes) {
+    // look for a terminating blockquote or image caption
+    var blockquote = chartContent.children('blockquote:last-child');
+    var caption = chartContent.children('div.image-container')
+                              .children('p.caption');
+    if (blockquote.length) {
+      chartNotes.empty().append(blockquote.children('p:first-child').contents());
+      blockquote.remove();
+      return true;
+    } else if (caption.length) {
+      chartNotes.empty().append(caption.contents());
+      caption.remove();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function findShinyOutput(chartContent) {
+    return chartContent.find('.shiny-text-output, .shiny-html-output');
+  }
+
+  // safely detect rendering on a mobile phone
+  function isMobilePhone() {
+    try
+    {
+      return ! window.matchMedia("only screen and (min-width: 768px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  function isFillPage() {
+    return _options.fillPage;
+  }
+
+  // detect portrait mode
+  function isPortrait() {
+    return ($(window).width() < $(window).height());
+  }
+
+  // safely detect rendering on a tablet
+  function isTablet() {
+    try
+    {
+      return window.matchMedia("only screen and (min-width: 769px) and (max-width: 992px)").matches;
+    }
+    catch(e) {
+      return false;
+    }
+  }
+
+  // test whether this is a shiny doc
+  function isShinyDoc() {
+    return (typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings);
+  }
+
+  // set flex using vendor specific prefixes
+  function setFlex(el, flex) {
+    el.css('-webkit-box-flex', flex)
+      .css('-webkit-flex', flex)
+      .css('-ms-flex', flex)
+      .css('flex', flex);
+  }
+
+  // support bookmarking of pages
+  function handleLocationHash() {
+
+    // restore tab/page from bookmark
+    var hash = window.decodeURIComponent(window.location.hash);
+    if (hash.length > 0)
+      $('ul.nav a[href="' + hash + '"]').tab('show');
+    FlexDashboardUtils.manageActiveNavbarMenu();
+
+    // navigate to a tab when the history changes
+    window.addEventListener("popstate", function(e) {
+      var hash = window.decodeURIComponent(window.location.hash);
+      var activeTab = $('ul.nav a[href="' + hash + '"]');
+      if (activeTab.length) {
+        activeTab.tab('show');
+      } else {
+        $('ul.nav a:first').tab('show');
+      }
+      FlexDashboardUtils.manageActiveNavbarMenu();
+    });
+
+    // add a hash to the URL when the user clicks on a tab/page
+    $('.navbar-nav a[data-toggle="tab"]').on('click', function(e) {
+      var baseUrl = FlexDashboardUtils.urlWithoutHash(window.location.href);
+      var hash = FlexDashboardUtils.urlHash($(this).attr('href'));
+      var href = baseUrl + hash;
+      FlexDashboardUtils.setLocation(href);
+    });
+
+    // handle clicks of other links that should activate pages
+    var navPages = $('ul.navbar-nav li a[data-toggle=tab]');
+    navPages.each(function() {
+      var href =  $(this).attr('href');
+      var links = $('a[href="' + href + '"][data-toggle!=tab]');
+      links.each(function() {
+        $(this).on('click', function(e) {
+          window.FlexDashboardUtils.showPage(href);
+        });
+      });
+    });
+  }
+
+  // tweak Prism highlighting
+  function initPrismHighlighting() {
+
+    if (window.Prism) {
+      Prism.languages.insertBefore('r', 'comment', {
+        'heading': [
+          {
+            // title 1
+        	  // =======
+
+        	  // title 2
+        	  // -------
+        	  pattern: /\w+.*(?:\r?\n|\r)(?:====+|----+)/,
+            alias: 'operator'
+          },
+          {
+            // ### title 3
+            pattern: /(^\s*)###[^#].+/m,
+            lookbehind: true,
+            alias: 'operator'
+          }
+        ]
+      });
+
+      // prism highlight
+      Prism.highlightAll();
+    }
+  }
+
+
+  // get theme color
+  var themeColors = {
+    bootstrap: {
+      primary: "rgba(51, 122, 183, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cerulean: {
+      primary: "rgb(47, 164, 231)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    journal: {
+      primary: "rgba(235, 104, 100, 0.70)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    flatly: {
+      primary: "rgba(44, 62, 80, 0.70)",
+      info: "rgba(52, 152, 219, 0.70)",
+      success: "rgba(24, 188, 156, 0.70)",
+      warning: "rgba(243, 156, 18, 0.70)",
+      danger: "rgba(231, 76, 60, 0.70)"
+    },
+    readable: {
+      primary: "rgba(69, 130, 236, 0.4)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    spacelab: {
+      primary: "rgba(68, 110, 155, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    united: {
+      primary: "rgba(221, 72, 20, 0.30)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    cosmo: {
+      primary: "rgba(39, 128, 227, 0.7)",
+      info: "rgba(153, 84, 187, 0.7)",
+      success: "rgba(63, 182, 24, 0.7)",
+      warning: "rgba(255, 117, 24, 0.7)",
+      danger: "rgba(255, 0, 57, 0.7)"
+    },
+    lumen: {
+      primary: "rgba(21, 140, 186, 0.70)",
+      info: "rgba(117, 202, 235, 0.90)",
+      success: "rgba(40, 182, 44, 0.70)",
+      warning: "rgba(255, 133, 27, 0.70)",
+      danger: "rgba(255, 65, 54, 0.70)"
+    },
+    paper: {
+      primary: "rgba(33, 150, 243, 0.35)",
+      info: "rgb(225, 190, 231)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(255, 224, 178)",
+      danger: "rgb(249, 189, 187)"
+    },
+    sandstone: {
+      primary: "rgba(50, 93, 136, 0.3)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    simplex: {
+      primary: "rgba(217, 35, 15, 0.25)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    },
+    yeti: {
+      primary: "rgba(0, 140, 186, 0.298039)",
+      info: "rgb(217, 237, 247)",
+      success: "rgb(223, 240, 216)",
+      warning: "rgb(252, 248, 227)",
+      danger: "rgb(242, 222, 222)"
+    }
+  }
+  function themeColor(color) {
+    return themeColors[_options.theme][color];
+  }
+
+  FlexDashboard.prototype = {
+    constructor: FlexDashboard,
+    init: init,
+    isMobilePhone: isMobilePhone,
+    isFillPage: isFillPage,
+    themeColor: themeColor
+  };
+
+  return FlexDashboard;
+
+})();
+
+// utils
+window.FlexDashboardUtils = {
+  resizableImage: function(img) {
+    var src = img.attr('src');
+    var url = 'url("' + src + '")';
+    img.parent().css('background', url)
+                .css('background-size', 'contain')
+                .css('background-repeat', 'no-repeat')
+                .css('background-position', 'center')
+                .addClass('image-container');
+  },
+  setLocation: function(href) {
+    if (history && history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.replace(href);
+    }
+    setTimeout(function() {
+        window.scrollTo(0, 0);
+    }, 10);
+    this.manageActiveNavbarMenu();
+  },
+  showPage: function(href) {
+    $('ul.navbar-nav li a[href="' + href + '"]').tab('show');
+    var baseUrl = this.urlWithoutHash(window.location.href);
+    var loc = baseUrl + href;
+    this.setLocation(loc);
+  },
+  showLinkedValue: function(href) {
+    // check for a page link
+    if ($('ul.navbar-nav li a[data-toggle=tab][href="' + href + '"]').length > 0)
+      this.showPage(href);
+    else
+      window.open(href);
+  },
+  urlWithoutHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(0, hashLoc);
+    else
+      return url;
+  },
+  urlHash: function(url) {
+    var hashLoc = url.indexOf('#');
+    if (hashLoc != -1)
+      return url.substring(hashLoc);
+    else
+      return "";
+  },
+  manageActiveNavbarMenu: function () {
+    // remove active from anyone currently active
+    $('.navbar ul.nav').find('li').removeClass('active');
+    // find the active tab
+    var activeTab = $('.dashboard-page-wrapper.tab-pane.active');
+    if (activeTab.length > 0) {
+      var tabId = activeTab.attr('id');
+      if (tabId)
+        $(".navbar ul.nav a[href='#" + tabId + "']").parents('li').addClass('active');
+    }
+  }
+};
+
+window.FlexDashboard = new FlexDashboard();
+
+// empty content
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    if (container.find('p').length == 0)
+      return container;
+    else
+      return $();
+  }
+})
+
+// plot image
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('p')
+                    .children('img:only-child');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// plot image (figure style)
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.figure').children('img');
+  },
+
+  layout: function(title, container, element, fillPage) {
+    FlexDashboardUtils.resizableImage(element);
+  }
+});
+
+// htmlwidget
+window.FlexDashboardComponents.push({
+
+  init: function(dashboardContainer) {
+    // trigger "shown" after initial layout to force static htmlwidgets
+    // in runtime: shiny to be resized after the dom has been transformed
+    dashboardContainer.on('flexdashboard:layoutcomplete', function(event) {
+      setTimeout(function() {
+        dashboardContainer.trigger('shown');
+      }, 200);
+    });
+  },
+
+  find: function(container) {
+    return container.children('div[id^="htmlwidget-"],div.html-widget');
+  }
+});
+
+// gauge
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.children('div.html-widget.gauge');
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+
+  }
+
+});
+
+// shiny output
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.children('div[class^="shiny-"]');
+  }
+});
+
+// datatables
+window.FlexDashboardComponents.push({
+  find: function(container) {
+    return container.find('.datatables');
+  },
+  flex: function(fillPage) {
+    return fillPage;
+  }
+});
+
+// bootstrap table
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    var bsTable = container.find('table.table');
+    if (bsTable.length !== 0)
+      return bsTable;
+    else
+      return container.find('tr.header').parent('thead').parent('table');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var bsTable = element;
+
+    // fixup xtable generated tables with a proper thead
+    var headerRow = bsTable.find('tbody > tr:first-child > th').parent();
+    if (headerRow.length > 0) {
+      var thead = $('<thead></thead>');
+      bsTable.prepend(thead);
+      headerRow.detach().appendTo(thead);
+    }
+
+    // improve appearance
+    container.addClass('bootstrap-table');
+
+    // for fill page provide scrolling w/ sticky headers
+    if (fillPage) {
+      // force scrollbar on overflow
+      container.addClass('flowing-content-shim');
+
+      // stable table headers when scrolling
+      bsTable.stickyTableHeaders({
+        scrollableArea: container
+      });
+    }
+  }
+});
+
+// embedded shiny app
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('iframe.shiny-frame');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage) {
+      element.attr('height', '100%');
+    } else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (!height)
+        height = element.attr('height');
+      if (!height)
+        element.attr('height', 500);
+    }
+  }
+});
+
+// shiny fillRow or fillCol
+window.FlexDashboardComponents.push({
+
+  find: function(container) {
+    return container.find('.flexfill-container');
+  },
+
+  flex: function(fillPage) {
+    return fillPage;
+  },
+
+  layout: function(title, container, element, fillPage) {
+    if (fillPage)
+      element.css('height', '100%');
+    else {
+      // provide default height if necessary
+      var height = element.get(0).style.height;
+      if (height === "100%" || height === "auto" || height === "initial" ||
+          height === "inherit" || !height) {
+        element.css('height', 500);
+      }
+    }
+  }
+});
+
+// valueBox
+window.FlexDashboardComponents.push({
+
+  type: "custom",
+
+  find: function(container) {
+    if (container.find('span.value-output, .shiny-valuebox-output').length)
+      return container;
+    else
+      return $();
+  },
+
+  flex: function(fillPage) {
+    return false;
+  },
+
+  layout: function(title, container, element, fillPage) {
+
+    // alias variables
+    var chartTitle = title;
+    var valueBox = element;
+
+    // add value-box class to container
+    container.addClass('value-box');
+
+    // value paragraph
+    var value = $('<p class="value"></p>');
+
+    // if we have shiny-text-output then just move it in
+    var valueOutputSpan = [];
+    var shinyOutput = valueBox.find('.shiny-valuebox-output').detach();
+    if (shinyOutput.length) {
+      valueBox.children().remove();
+      shinyOutput.html("&mdash;");
+      value.append(shinyOutput);
+    } else {
+      // extract the value (remove leading vector index)
+      var chartValue = valueBox.text().trim();
+      chartValue = chartValue.replace("[1] ", "");
+      valueOutputSpan = valueBox.find('span.value-output').detach();
+      valueBox.children().remove();
+      value.text(chartValue);
+    }
+
+    // caption
+    var caption = $('<p class="caption"></p>');
+    caption.append(chartTitle);
+
+    // build inner div for value box and add it
+    var inner = $('<div class="inner"></div>');
+    inner.append(value);
+    inner.append(caption);
+    valueBox.append(inner);
+
+    // add icon if specified
+    var icon = $('<div class="icon"><i></i></div>');
+    valueBox.append(icon);
+    function setIcon(chartIcon) {
+      var iconLib = "";
+      var iconSplit = chartIcon.split(" ");
+      if (iconSplit.length > 1) {
+        iconLib = iconSplit[0];
+        chartIcon = iconSplit.slice(1).join(" ");
+      } else {
+        var components = chartIcon.split("-");
+        if (components.length > 1)
+          iconLib = components[0];
+      }
+      icon.children('i').attr('class', iconLib + ' ' + chartIcon);
+    }
+    var chartIcon = valueBox.attr('data-icon');
+    if (chartIcon)
+      setIcon(chartIcon);
+
+    // set color based on data-background if necessary
+    var dataBackground = valueBox.attr('data-background');
+    if (dataBackground)
+      valueBox.css('background-color', bgColor);
+    else {
+      // default to bg-primary if no other background is specified
+      if (!valueBox.hasClass('bg-primary') &&
+          !valueBox.hasClass('bg-info') &&
+          !valueBox.hasClass('bg-warning') &&
+          !valueBox.hasClass('bg-success') &&
+          !valueBox.hasClass('bg-danger')) {
+        valueBox.addClass('bg-primary');
+      }
+    }
+
+    // handle data attributes in valueOutputSpan
+    function handleValueOutput(valueOutput) {
+
+      // caption
+      var dataCaption = valueOutput.attr('data-caption');
+      if (dataCaption)
+        caption.html(dataCaption);
+
+      // icon
+      var dataIcon = valueOutput.attr('data-icon');
+      if (dataIcon)
+        setIcon(dataIcon);
+
+      // color
+      var dataColor = valueOutput.attr('data-color');
+      if (dataColor) {
+        if (dataColor.indexOf('bg-') === 0) {
+          valueBox.css('background-color', '');
+          if (!valueBox.hasClass(dataColor)) {
+             valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+             valueBox.addClass(dataColor);
+          }
+        } else {
+          valueBox.removeClass('bg-primary bg-info bg-warning bg-danger bg-success');
+          valueBox.css('background-color', dataColor);
+        }
+      }
+
+      // url
+      var dataHref = valueOutput.attr('data-href');
+      if (dataHref) {
+        valueBox.addClass('linked-value');
+        valueBox.off('click.value-box');
+        valueBox.on('click.value-box', function(e) {
+          window.FlexDashboardUtils.showLinkedValue(dataHref);
+        });
+      }
+    }
+
+    // check for a valueOutputSpan
+    if (valueOutputSpan.length > 0) {
+      handleValueOutput(valueOutputSpan);
+    }
+
+    // if we have a shinyOutput then bind a listener to handle
+    // new valueOutputSpan values
+    shinyOutput.on('shiny:value',
+      function(event) {
+        var element = $(event.target);
+        setTimeout(function() {
+          var valueOutputSpan = element.find('span.value-output');
+          if (valueOutputSpan.length > 0)
+            handleValueOutput(valueOutputSpan);
+        }, 10);
+      }
+    );
+  }
+});
+</script>
+
+<div id="dashboard-container">
+
+<div id="column" class="section level2" data-width="600">
+<h2>Column</h2>
+<div id="species" class="section level3">
+<h3>Species</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-b0a73dcc4a91a021262e" style="width:576px;height:460.8px;" class="rbokeh html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b0a73dcc4a91a021262e">{"x":{"elementid":"40af9a906529fd9bd91cb28c0ba7770d","modeltype":"Plot","modelid":"b64724629297671c8c582d646c080104","docid":"97e7802554c283cc3600d7538afcdfb3","docs_json":{"97e7802554c283cc3600d7538afcdfb3":{"version":"0.12.5","title":"Bokeh Figure","roots":{"root_ids":["b64724629297671c8c582d646c080104"],"references":[{"type":"Plot","id":"b64724629297671c8c582d646c080104","attributes":{"id":"b64724629297671c8c582d646c080104","sizing_mode":"scale_both","x_range":{"type":"Range1d","id":"77b8d01292e643c0d8fcdcb5e8d76431"},"y_range":{"type":"Range1d","id":"c3dc0d8a64a661a9bddc202558a9521d"},"left":[{"type":"LinearAxis","id":"f7c0ba57cd375832f015ff004fbda57d"}],"below":[{"type":"LinearAxis","id":"9213fcb24542dfd89aae1fe0084312c9"}],"right":[],"above":[],"renderers":[{"type":"BoxAnnotation","id":"26ed88b82c090c18a6145ce9620d8b1e"},{"type":"GlyphRenderer","id":"0fa875fd8ddac7df44a2b8665f3c1abf"},{"type":"GlyphRenderer","id":"107867c94ed91c55754fd7458dff0cd3"},{"type":"GlyphRenderer","id":"ce3a0936da97d40c58343c8bf8f0dca6"},{"type":"GlyphRenderer","id":"c094b8797169b9fd594453cd51055593"},{"type":"Legend","id":"9bde727546bbc832fc153431abe4c3fa"},{"type":"LinearAxis","id":"9213fcb24542dfd89aae1fe0084312c9"},{"type":"Grid","id":"c6609a67f5bf2293ae8b668a9d022174"},{"type":"LinearAxis","id":"f7c0ba57cd375832f015ff004fbda57d"},{"type":"Grid","id":"5cfa8c678447610a4a35a1303baebbc4"}],"extra_y_ranges":{},"extra_x_ranges":{},"tags":[],"min_border_left":4,"min_border_right":4,"min_border_top":4,"min_border_bottom":4,"lod_threshold":null,"toolbar":{"type":"Toolbar","id":"96f888427cfec17524ad0c91b184bfcc"},"tool_events":{"type":"ToolEvents","id":"14b4b469154e2f0b1a6304a11a6f425a"}},"subtype":"Figure"},{"type":"Toolbar","id":"96f888427cfec17524ad0c91b184bfcc","attributes":{"id":"96f888427cfec17524ad0c91b184bfcc","tags":[],"active_drag":"auto","active_scroll":"auto","active_tap":"auto","tools":[{"type":"PanTool","id":"b3d09aac58227e5b2ff03233786dd187"},{"type":"WheelZoomTool","id":"9158956d6127f78b7a7452b6421cde68"},{"type":"BoxZoomTool","id":"a83f6ad9d8fa5fb66ccc0144146b3b31"},{"type":"ResetTool","id":"1061770f808580a8fb472de10722fdba"},{"type":"SaveTool","id":"45585778d1d156a84615311962a83fc1"},{"type":"HelpTool","id":"8fa3888df20c6f50a1b85c87ac2635f2"}],"logo":null}},{"type":"PanTool","id":"b3d09aac58227e5b2ff03233786dd187","attributes":{"id":"b3d09aac58227e5b2ff03233786dd187","tags":[],"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"},"dimensions":"both"}},{"type":"ToolEvents","id":"14b4b469154e2f0b1a6304a11a6f425a","attributes":{"id":"14b4b469154e2f0b1a6304a11a6f425a","tags":[]},"geometries":[]},{"type":"WheelZoomTool","id":"9158956d6127f78b7a7452b6421cde68","attributes":{"id":"9158956d6127f78b7a7452b6421cde68","tags":[],"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"},"dimensions":"both"}},{"type":"BoxAnnotation","id":"26ed88b82c090c18a6145ce9620d8b1e","attributes":{"id":"26ed88b82c090c18a6145ce9620d8b1e","tags":[],"line_color":{"units":"data","value":"black"},"line_alpha":{"units":"data","value":1},"fill_color":{"units":"data","value":"lightgrey"},"fill_alpha":{"units":"data","value":0.5},"line_dash":[4,4],"line_width":{"units":"data","value":2},"level":"overlay","top_units":"screen","bottom_units":"screen","left_units":"screen","right_units":"screen","render_mode":"css"}},{"type":"BoxZoomTool","id":"a83f6ad9d8fa5fb66ccc0144146b3b31","attributes":{"id":"a83f6ad9d8fa5fb66ccc0144146b3b31","tags":[],"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"},"overlay":{"type":"BoxAnnotation","id":"26ed88b82c090c18a6145ce9620d8b1e"}}},{"type":"ResetTool","id":"1061770f808580a8fb472de10722fdba","attributes":{"id":"1061770f808580a8fb472de10722fdba","tags":[],"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"}}},{"type":"SaveTool","id":"45585778d1d156a84615311962a83fc1","attributes":{"id":"45585778d1d156a84615311962a83fc1","tags":[],"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"}}},{"type":"HelpTool","id":"8fa3888df20c6f50a1b85c87ac2635f2","attributes":{"id":"8fa3888df20c6f50a1b85c87ac2635f2","tags":[],"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"},"redirect":"https://hafen.github.io/rbokeh/","help_tooltip":"Click to learn more about rbokeh."}},{"type":"ColumnDataSource","id":"454892907a2e58b5921e79ea8b226355","attributes":{"id":"454892907a2e58b5921e79ea8b226355","tags":[],"column_names":["x","y","line_color","fill_color"],"selected":[],"data":{"x":[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"y":[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],"line_color":["#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C"],"fill_color":["#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#1F77B4","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#FF7F0E","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C","#2CA02C"]}}},{"type":"Circle","id":"514e85ef97bd1d43e10ea0b95277afef","attributes":{"id":"514e85ef97bd1d43e10ea0b95277afef","tags":[],"size":{"units":"screen","value":10},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","field":"line_color"},"fill_color":{"units":"data","field":"fill_color"}}},{"type":"Circle","id":"f40bf883c6ec77d48da50849e1ed41c0","attributes":{"id":"f40bf883c6ec77d48da50849e1ed41c0","tags":[],"size":{"units":"screen","value":10},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"}}},{"type":"Circle","id":"419eede7e3aa6e9259fa4f0d5a5bf33b","attributes":{"id":"419eede7e3aa6e9259fa4f0d5a5bf33b","tags":[],"size":{"units":"screen","value":10},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","field":"line_color"},"fill_color":{"units":"data","field":"fill_color"}}},{"type":"GlyphRenderer","id":"0fa875fd8ddac7df44a2b8665f3c1abf","attributes":{"id":"0fa875fd8ddac7df44a2b8665f3c1abf","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"f40bf883c6ec77d48da50849e1ed41c0"},"hover_glyph":{"type":"Circle","id":"419eede7e3aa6e9259fa4f0d5a5bf33b"},"name":null,"data_source":{"type":"ColumnDataSource","id":"454892907a2e58b5921e79ea8b226355"},"glyph":{"type":"Circle","id":"514e85ef97bd1d43e10ea0b95277afef"}}},{"type":"ColumnDataSource","id":"0e5943d9a43d4e07b3050ef0b88afa60","attributes":{"id":"0e5943d9a43d4e07b3050ef0b88afa60","tags":[],"column_names":["x","y"],"selected":[],"data":{"x":[null,null],"y":[null,null]}}},{"type":"Circle","id":"bcf902d859f48498b3056149b8e4f0bc","attributes":{"id":"bcf902d859f48498b3056149b8e4f0bc","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#1F77B4"},"fill_color":{"units":"data","value":"#1F77B4"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"12da6780e7199c4023296db016ca58b9","attributes":{"id":"12da6780e7199c4023296db016ca58b9","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"18b35bcef97f1a4fc63e49dffba5a553","attributes":{"id":"18b35bcef97f1a4fc63e49dffba5a553","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#1F77B4"},"fill_color":{"units":"data","value":"#1F77B4"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"107867c94ed91c55754fd7458dff0cd3","attributes":{"id":"107867c94ed91c55754fd7458dff0cd3","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"12da6780e7199c4023296db016ca58b9"},"hover_glyph":{"type":"Circle","id":"18b35bcef97f1a4fc63e49dffba5a553"},"name":null,"data_source":{"type":"ColumnDataSource","id":"0e5943d9a43d4e07b3050ef0b88afa60"},"glyph":{"type":"Circle","id":"bcf902d859f48498b3056149b8e4f0bc"}}},{"type":"Circle","id":"472cbe98ea7a79c9d6d0edd3c35357c6","attributes":{"id":"472cbe98ea7a79c9d6d0edd3c35357c6","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#FF7F0E"},"fill_color":{"units":"data","value":"#FF7F0E"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"7f2ce6b7aac00ba23086bd1f4f7db58b","attributes":{"id":"7f2ce6b7aac00ba23086bd1f4f7db58b","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"f3f291e3f6c3712430a53c0d625f20de","attributes":{"id":"f3f291e3f6c3712430a53c0d625f20de","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#FF7F0E"},"fill_color":{"units":"data","value":"#FF7F0E"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"ce3a0936da97d40c58343c8bf8f0dca6","attributes":{"id":"ce3a0936da97d40c58343c8bf8f0dca6","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"7f2ce6b7aac00ba23086bd1f4f7db58b"},"hover_glyph":{"type":"Circle","id":"f3f291e3f6c3712430a53c0d625f20de"},"name":null,"data_source":{"type":"ColumnDataSource","id":"0e5943d9a43d4e07b3050ef0b88afa60"},"glyph":{"type":"Circle","id":"472cbe98ea7a79c9d6d0edd3c35357c6"}}},{"type":"Circle","id":"b54c70bf79e4e0219110f2e0ddabf8b6","attributes":{"id":"b54c70bf79e4e0219110f2e0ddabf8b6","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#2CA02C"},"fill_color":{"units":"data","value":"#2CA02C"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"2d48df6a4c9dc80858f0bb02f9362a0f","attributes":{"id":"2d48df6a4c9dc80858f0bb02f9362a0f","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"ff57db67692ae5c1d419b1081c700f20","attributes":{"id":"ff57db67692ae5c1d419b1081c700f20","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#2CA02C"},"fill_color":{"units":"data","value":"#2CA02C"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"c094b8797169b9fd594453cd51055593","attributes":{"id":"c094b8797169b9fd594453cd51055593","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"2d48df6a4c9dc80858f0bb02f9362a0f"},"hover_glyph":{"type":"Circle","id":"ff57db67692ae5c1d419b1081c700f20"},"name":null,"data_source":{"type":"ColumnDataSource","id":"0e5943d9a43d4e07b3050ef0b88afa60"},"glyph":{"type":"Circle","id":"b54c70bf79e4e0219110f2e0ddabf8b6"}}},{"type":"LegendItem","id":"6c79d2d4c80d9bb13176e208da26a8ac","attributes":{"id":"6c79d2d4c80d9bb13176e208da26a8ac","tags":[],"label":{"value":"Species"},"renderers":[]}},{"type":"LegendItem","id":"ac849ce5003b47d85a9eb7417eda0044","attributes":{"id":"ac849ce5003b47d85a9eb7417eda0044","tags":[],"label":{"value":" setosa"},"renderers":[{"type":"GlyphRenderer","id":"107867c94ed91c55754fd7458dff0cd3"}]}},{"type":"LegendItem","id":"8db0fa4e364d5f9bfa7f50664d61242e","attributes":{"id":"8db0fa4e364d5f9bfa7f50664d61242e","tags":[],"label":{"value":" versicolor"},"renderers":[{"type":"GlyphRenderer","id":"ce3a0936da97d40c58343c8bf8f0dca6"}]}},{"type":"LegendItem","id":"8ebd2fa8f3b694fc36cb2b88db89a531","attributes":{"id":"8ebd2fa8f3b694fc36cb2b88db89a531","tags":[],"label":{"value":" virginica"},"renderers":[{"type":"GlyphRenderer","id":"c094b8797169b9fd594453cd51055593"}]}},{"type":"Legend","id":"9bde727546bbc832fc153431abe4c3fa","attributes":{"id":"9bde727546bbc832fc153431abe4c3fa","tags":[],"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"},"items":[{"type":"LegendItem","id":"6c79d2d4c80d9bb13176e208da26a8ac"},{"type":"LegendItem","id":"ac849ce5003b47d85a9eb7417eda0044"},{"type":"LegendItem","id":"8db0fa4e364d5f9bfa7f50664d61242e"},{"type":"LegendItem","id":"8ebd2fa8f3b694fc36cb2b88db89a531"}],"location":"top_right"}},{"type":"Range1d","id":"77b8d01292e643c0d8fcdcb5e8d76431","attributes":{"id":"77b8d01292e643c0d8fcdcb5e8d76431","tags":[],"start":4.048,"end":8.152}},{"type":"Range1d","id":"c3dc0d8a64a661a9bddc202558a9521d","attributes":{"id":"c3dc0d8a64a661a9bddc202558a9521d","tags":[],"start":1.832,"end":4.568}},{"type":"LinearAxis","id":"9213fcb24542dfd89aae1fe0084312c9","attributes":{"id":"9213fcb24542dfd89aae1fe0084312c9","tags":[],"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"},"axis_label":"Sepal.Length","formatter":{"type":"BasicTickFormatter","id":"2076ac897abef33c9c59d944bb357ff0"},"ticker":{"type":"BasicTicker","id":"c5a4215c8016b1ae80f843964a6ea908"},"visible":true,"axis_label_text_font_size":"12pt"}},{"type":"BasicTickFormatter","id":"2076ac897abef33c9c59d944bb357ff0","attributes":{"id":"2076ac897abef33c9c59d944bb357ff0","tags":[]}},{"type":"BasicTicker","id":"c5a4215c8016b1ae80f843964a6ea908","attributes":{"id":"c5a4215c8016b1ae80f843964a6ea908","tags":[],"num_minor_ticks":5}},{"type":"Grid","id":"c6609a67f5bf2293ae8b668a9d022174","attributes":{"id":"c6609a67f5bf2293ae8b668a9d022174","tags":[],"dimension":0,"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"},"ticker":{"type":"BasicTicker","id":"c5a4215c8016b1ae80f843964a6ea908"}}},{"type":"LinearAxis","id":"f7c0ba57cd375832f015ff004fbda57d","attributes":{"id":"f7c0ba57cd375832f015ff004fbda57d","tags":[],"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"},"axis_label":"Sepal.Width","formatter":{"type":"BasicTickFormatter","id":"91722145c27b56d59ae57eec1ad1d56b"},"ticker":{"type":"BasicTicker","id":"4fe1b2f977e7377a0105d7435714241c"},"visible":true,"axis_label_text_font_size":"12pt"}},{"type":"BasicTickFormatter","id":"91722145c27b56d59ae57eec1ad1d56b","attributes":{"id":"91722145c27b56d59ae57eec1ad1d56b","tags":[]}},{"type":"BasicTicker","id":"4fe1b2f977e7377a0105d7435714241c","attributes":{"id":"4fe1b2f977e7377a0105d7435714241c","tags":[],"num_minor_ticks":5}},{"type":"Grid","id":"5cfa8c678447610a4a35a1303baebbc4","attributes":{"id":"5cfa8c678447610a4a35a1303baebbc4","tags":[],"dimension":1,"plot":{"type":"Plot","id":"b64724629297671c8c582d646c080104","subtype":"Figure"},"ticker":{"type":"BasicTicker","id":"4fe1b2f977e7377a0105d7435714241c"}}}]}}},"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div id="column-1" class="section level2" data-width="400">
+<h2>Column</h2>
+<div id="species-quantile" class="section level3">
+<h3>Species (Quantile)</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-6698b4aedf3b37b398c5" style="width:576px;height:460.8px;" class="rbokeh html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6698b4aedf3b37b398c5">{"x":{"elementid":"747e793b1789913ac6fb307f49ae7c95","modeltype":"Plot","modelid":"d6c60263f8fecf0c8172ef4d6ab69fc4","docid":"97e7802554c283cc3600d7538afcdfb3","docs_json":{"97e7802554c283cc3600d7538afcdfb3":{"version":"0.12.5","title":"Bokeh Figure","roots":{"root_ids":["d6c60263f8fecf0c8172ef4d6ab69fc4"],"references":[{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","attributes":{"id":"d6c60263f8fecf0c8172ef4d6ab69fc4","sizing_mode":"scale_both","x_range":{"type":"Range1d","id":"55ed923302b1d6f4d3027b036fa98677"},"y_range":{"type":"Range1d","id":"17582b9f3b68d73aeef8f6d716ce3375"},"left":[{"type":"LinearAxis","id":"86ace51bbe352700150cd2ec410ffb61"}],"below":[{"type":"LinearAxis","id":"5926acd591f36b29c11241ba6a4066a9"}],"right":[],"above":[],"renderers":[{"type":"BoxAnnotation","id":"69a12f0648d85828ac184091c79b74e4"},{"type":"GlyphRenderer","id":"183a8123ff39d3193cf195e41da5b5e7"},{"type":"GlyphRenderer","id":"52e9a4a64aad30f21ea33a1580c44861"},{"type":"GlyphRenderer","id":"578945e041b16e11c0a6271fc4e7af46"},{"type":"GlyphRenderer","id":"0fdabacfb54066c9d74dc8ecc4c43830"},{"type":"GlyphRenderer","id":"e6376860af55ade248e3e3a6754d634b"},{"type":"GlyphRenderer","id":"07339243e1b026f6bc03f09860987d0b"},{"type":"Legend","id":"81c9258f366a80dc74390a617146c861"},{"type":"LinearAxis","id":"5926acd591f36b29c11241ba6a4066a9"},{"type":"Grid","id":"fa53fe5a6fd6f5552e96e3e9c6421ddc"},{"type":"LinearAxis","id":"86ace51bbe352700150cd2ec410ffb61"},{"type":"Grid","id":"90cb46b431dab3684fedcc5b9827d8b3"}],"extra_y_ranges":{},"extra_x_ranges":{},"tags":[],"min_border_left":4,"min_border_right":4,"min_border_top":4,"min_border_bottom":4,"lod_threshold":null,"toolbar":{"type":"Toolbar","id":"08f0c8ab0074300606c8af1e6846f38d"},"tool_events":{"type":"ToolEvents","id":"c4e16418c7cd452686170d92b7f6613c"}},"subtype":"Figure"},{"type":"Toolbar","id":"08f0c8ab0074300606c8af1e6846f38d","attributes":{"id":"08f0c8ab0074300606c8af1e6846f38d","tags":[],"active_drag":"auto","active_scroll":"auto","active_tap":"auto","tools":[{"type":"PanTool","id":"1466712a662bce130fc59ecb028c20d3"},{"type":"WheelZoomTool","id":"b6647a422ee61390bcbcec435ddc9668"},{"type":"BoxZoomTool","id":"7697d41aea2e7f099a1f180e908ce909"},{"type":"ResetTool","id":"6dd2895b041322c56fe6147de9b99e67"},{"type":"SaveTool","id":"e739b665a2efb8acd0e7224abe491131"},{"type":"HelpTool","id":"daf7f20c58a515474fd6a2105d17a242"}],"logo":null}},{"type":"PanTool","id":"1466712a662bce130fc59ecb028c20d3","attributes":{"id":"1466712a662bce130fc59ecb028c20d3","tags":[],"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"},"dimensions":"both"}},{"type":"ToolEvents","id":"c4e16418c7cd452686170d92b7f6613c","attributes":{"id":"c4e16418c7cd452686170d92b7f6613c","tags":[]},"geometries":[]},{"type":"WheelZoomTool","id":"b6647a422ee61390bcbcec435ddc9668","attributes":{"id":"b6647a422ee61390bcbcec435ddc9668","tags":[],"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"},"dimensions":"both"}},{"type":"BoxAnnotation","id":"69a12f0648d85828ac184091c79b74e4","attributes":{"id":"69a12f0648d85828ac184091c79b74e4","tags":[],"line_color":{"units":"data","value":"black"},"line_alpha":{"units":"data","value":1},"fill_color":{"units":"data","value":"lightgrey"},"fill_alpha":{"units":"data","value":0.5},"line_dash":[4,4],"line_width":{"units":"data","value":2},"level":"overlay","top_units":"screen","bottom_units":"screen","left_units":"screen","right_units":"screen","render_mode":"css"}},{"type":"BoxZoomTool","id":"7697d41aea2e7f099a1f180e908ce909","attributes":{"id":"7697d41aea2e7f099a1f180e908ce909","tags":[],"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"},"overlay":{"type":"BoxAnnotation","id":"69a12f0648d85828ac184091c79b74e4"}}},{"type":"ResetTool","id":"6dd2895b041322c56fe6147de9b99e67","attributes":{"id":"6dd2895b041322c56fe6147de9b99e67","tags":[],"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"}}},{"type":"SaveTool","id":"e739b665a2efb8acd0e7224abe491131","attributes":{"id":"e739b665a2efb8acd0e7224abe491131","tags":[],"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"}}},{"type":"HelpTool","id":"daf7f20c58a515474fd6a2105d17a242","attributes":{"id":"daf7f20c58a515474fd6a2105d17a242","tags":[],"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"},"redirect":"https://hafen.github.io/rbokeh/","help_tooltip":"Click to learn more about rbokeh."}},{"type":"ColumnDataSource","id":"b0cc4fcedea07818739dc6eaf4a2c391","attributes":{"id":"b0cc4fcedea07818739dc6eaf4a2c391","tags":[],"column_names":["x","y"],"selected":[],"data":{"x":[0.01,0.03,0.05,0.07,0.09,0.11,0.13,0.15,0.17,0.19,0.21,0.23,0.25,0.27,0.29,0.31,0.33,0.35,0.37,0.39,0.41,0.43,0.45,0.47,0.49,0.51,0.53,0.55,0.57,0.59,0.61,0.63,0.65,0.67,0.69,0.71,0.73,0.75,0.77,0.79,0.81,0.83,0.85,0.87,0.89,0.91,0.93,0.95,0.97,0.99],"y":[4.3,4.4,4.4,4.4,4.5,4.6,4.6,4.6,4.6,4.7,4.7,4.8,4.8,4.8,4.8,4.8,4.9,4.9,4.9,4.9,5,5,5,5,5,5,5,5,5.1,5.1,5.1,5.1,5.1,5.1,5.1,5.1,5.2,5.2,5.2,5.3,5.4,5.4,5.4,5.4,5.4,5.5,5.5,5.7,5.7,5.8]}}},{"type":"Circle","id":"1d07a33376d24b4424beab51d8b563dd","attributes":{"id":"1d07a33376d24b4424beab51d8b563dd","tags":[],"size":{"units":"screen","value":10},"line_color":{"units":"data","value":"#1F77B4"},"fill_color":{"units":"data","value":"#1F77B4"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"6768f9e0edba462f5484b5ca9e6b7361","attributes":{"id":"6768f9e0edba462f5484b5ca9e6b7361","tags":[],"size":{"units":"screen","value":10},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"6769c3b75d64dccf65527f2c10a8ecc0","attributes":{"id":"6769c3b75d64dccf65527f2c10a8ecc0","tags":[],"size":{"units":"screen","value":10},"line_color":{"units":"data","value":"#1F77B4"},"fill_color":{"units":"data","value":"#1F77B4"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"183a8123ff39d3193cf195e41da5b5e7","attributes":{"id":"183a8123ff39d3193cf195e41da5b5e7","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"6768f9e0edba462f5484b5ca9e6b7361"},"hover_glyph":{"type":"Circle","id":"6769c3b75d64dccf65527f2c10a8ecc0"},"name":null,"data_source":{"type":"ColumnDataSource","id":"b0cc4fcedea07818739dc6eaf4a2c391"},"glyph":{"type":"Circle","id":"1d07a33376d24b4424beab51d8b563dd"}}},{"type":"ColumnDataSource","id":"f0e102fe0f8ffe9fd3d54f8199ee3816","attributes":{"id":"f0e102fe0f8ffe9fd3d54f8199ee3816","tags":[],"column_names":["x","y"],"selected":[],"data":{"x":[0.01,0.03,0.05,0.07,0.09,0.11,0.13,0.15,0.17,0.19,0.21,0.23,0.25,0.27,0.29,0.31,0.33,0.35,0.37,0.39,0.41,0.43,0.45,0.47,0.49,0.51,0.53,0.55,0.57,0.59,0.61,0.63,0.65,0.67,0.69,0.71,0.73,0.75,0.77,0.79,0.81,0.83,0.85,0.87,0.89,0.91,0.93,0.95,0.97,0.99],"y":[4.9,5,5,5.1,5.2,5.4,5.5,5.5,5.5,5.5,5.5,5.6,5.6,5.6,5.6,5.6,5.7,5.7,5.7,5.7,5.7,5.8,5.8,5.8,5.9,5.9,6,6,6,6,6.1,6.1,6.1,6.1,6.2,6.2,6.3,6.3,6.3,6.4,6.4,6.5,6.6,6.6,6.7,6.7,6.7,6.8,6.9,7]}}},{"type":"Circle","id":"f00ec1d24f916b63637e2d969630f8e4","attributes":{"id":"f00ec1d24f916b63637e2d969630f8e4","tags":[],"size":{"units":"screen","value":10},"line_color":{"units":"data","value":"#FF7F0E"},"fill_color":{"units":"data","value":"#FF7F0E"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"502d3c56866ae39be8320b1ec3ca75c3","attributes":{"id":"502d3c56866ae39be8320b1ec3ca75c3","tags":[],"size":{"units":"screen","value":10},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"f723272e34721d39300b858686dab246","attributes":{"id":"f723272e34721d39300b858686dab246","tags":[],"size":{"units":"screen","value":10},"line_color":{"units":"data","value":"#FF7F0E"},"fill_color":{"units":"data","value":"#FF7F0E"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"52e9a4a64aad30f21ea33a1580c44861","attributes":{"id":"52e9a4a64aad30f21ea33a1580c44861","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"502d3c56866ae39be8320b1ec3ca75c3"},"hover_glyph":{"type":"Circle","id":"f723272e34721d39300b858686dab246"},"name":null,"data_source":{"type":"ColumnDataSource","id":"f0e102fe0f8ffe9fd3d54f8199ee3816"},"glyph":{"type":"Circle","id":"f00ec1d24f916b63637e2d969630f8e4"}}},{"type":"ColumnDataSource","id":"ad01a0abbc08a726b427ddde69972e47","attributes":{"id":"ad01a0abbc08a726b427ddde69972e47","tags":[],"column_names":["x","y"],"selected":[],"data":{"x":[0.01,0.03,0.05,0.07,0.09,0.11,0.13,0.15,0.17,0.19,0.21,0.23,0.25,0.27,0.29,0.31,0.33,0.35,0.37,0.39,0.41,0.43,0.45,0.47,0.49,0.51,0.53,0.55,0.57,0.59,0.61,0.63,0.65,0.67,0.69,0.71,0.73,0.75,0.77,0.79,0.81,0.83,0.85,0.87,0.89,0.91,0.93,0.95,0.97,0.99],"y":[4.9,5.6,5.7,5.8,5.8,5.8,5.9,6,6,6.1,6.1,6.2,6.2,6.3,6.3,6.3,6.3,6.3,6.3,6.4,6.4,6.4,6.4,6.4,6.5,6.5,6.5,6.5,6.7,6.7,6.7,6.7,6.7,6.8,6.8,6.9,6.9,6.9,7.1,7.2,7.2,7.2,7.3,7.4,7.6,7.7,7.7,7.7,7.7,7.9]}}},{"type":"Circle","id":"90f70a032f98e3337818503f547c18cc","attributes":{"id":"90f70a032f98e3337818503f547c18cc","tags":[],"size":{"units":"screen","value":10},"line_color":{"units":"data","value":"#2CA02C"},"fill_color":{"units":"data","value":"#2CA02C"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"adfd17d543b5f454c5f996e9c0db97b3","attributes":{"id":"adfd17d543b5f454c5f996e9c0db97b3","tags":[],"size":{"units":"screen","value":10},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"34b5f69d2b31c2281e39b2de03b06112","attributes":{"id":"34b5f69d2b31c2281e39b2de03b06112","tags":[],"size":{"units":"screen","value":10},"line_color":{"units":"data","value":"#2CA02C"},"fill_color":{"units":"data","value":"#2CA02C"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"578945e041b16e11c0a6271fc4e7af46","attributes":{"id":"578945e041b16e11c0a6271fc4e7af46","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"adfd17d543b5f454c5f996e9c0db97b3"},"hover_glyph":{"type":"Circle","id":"34b5f69d2b31c2281e39b2de03b06112"},"name":null,"data_source":{"type":"ColumnDataSource","id":"ad01a0abbc08a726b427ddde69972e47"},"glyph":{"type":"Circle","id":"90f70a032f98e3337818503f547c18cc"}}},{"type":"ColumnDataSource","id":"73553a0f332df9df864078aad992f5e8","attributes":{"id":"73553a0f332df9df864078aad992f5e8","tags":[],"column_names":["x","y"],"selected":[],"data":{"x":[null,null],"y":[null,null]}}},{"type":"Circle","id":"aee531c10a39f4428f14a66fa992707f","attributes":{"id":"aee531c10a39f4428f14a66fa992707f","tags":[],"size":{"units":"screen","value":0},"line_color":{"units":"data","value":"#1F77B4"},"fill_color":{"units":"data","value":"#1F77B4"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5}}},{"type":"Circle","id":"628876090eed3dff75e414d5d898b75c","attributes":{"id":"628876090eed3dff75e414d5d898b75c","tags":[],"size":{"units":"screen","value":0},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5}}},{"type":"Circle","id":"68920b473688bc88c32acf91c04f1385","attributes":{"id":"68920b473688bc88c32acf91c04f1385","tags":[],"size":{"units":"screen","value":0},"line_color":{"units":"data","value":"#1F77B4"},"fill_color":{"units":"data","value":"#1F77B4"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1}}},{"type":"GlyphRenderer","id":"0fdabacfb54066c9d74dc8ecc4c43830","attributes":{"id":"0fdabacfb54066c9d74dc8ecc4c43830","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"628876090eed3dff75e414d5d898b75c"},"hover_glyph":{"type":"Circle","id":"68920b473688bc88c32acf91c04f1385"},"name":null,"data_source":{"type":"ColumnDataSource","id":"73553a0f332df9df864078aad992f5e8"},"glyph":{"type":"Circle","id":"aee531c10a39f4428f14a66fa992707f"}}},{"type":"Circle","id":"a24cd9d20fc4da146f8a433504268fe3","attributes":{"id":"a24cd9d20fc4da146f8a433504268fe3","tags":[],"size":{"units":"screen","value":0},"line_color":{"units":"data","value":"#FF7F0E"},"fill_color":{"units":"data","value":"#FF7F0E"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5}}},{"type":"Circle","id":"af0a3459c9daae888609552c51a4a91d","attributes":{"id":"af0a3459c9daae888609552c51a4a91d","tags":[],"size":{"units":"screen","value":0},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5}}},{"type":"Circle","id":"daefa18595b471aa1b17cea7904a3643","attributes":{"id":"daefa18595b471aa1b17cea7904a3643","tags":[],"size":{"units":"screen","value":0},"line_color":{"units":"data","value":"#FF7F0E"},"fill_color":{"units":"data","value":"#FF7F0E"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1}}},{"type":"GlyphRenderer","id":"e6376860af55ade248e3e3a6754d634b","attributes":{"id":"e6376860af55ade248e3e3a6754d634b","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"af0a3459c9daae888609552c51a4a91d"},"hover_glyph":{"type":"Circle","id":"daefa18595b471aa1b17cea7904a3643"},"name":null,"data_source":{"type":"ColumnDataSource","id":"73553a0f332df9df864078aad992f5e8"},"glyph":{"type":"Circle","id":"a24cd9d20fc4da146f8a433504268fe3"}}},{"type":"Circle","id":"2984770ead5595eb17038d99e9cd3810","attributes":{"id":"2984770ead5595eb17038d99e9cd3810","tags":[],"size":{"units":"screen","value":0},"line_color":{"units":"data","value":"#2CA02C"},"fill_color":{"units":"data","value":"#2CA02C"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5}}},{"type":"Circle","id":"2f9b04cb1d165bd41873bd91497d35a7","attributes":{"id":"2f9b04cb1d165bd41873bd91497d35a7","tags":[],"size":{"units":"screen","value":0},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5}}},{"type":"Circle","id":"01530227b13a395c6024499329c6242d","attributes":{"id":"01530227b13a395c6024499329c6242d","tags":[],"size":{"units":"screen","value":0},"line_color":{"units":"data","value":"#2CA02C"},"fill_color":{"units":"data","value":"#2CA02C"},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1}}},{"type":"GlyphRenderer","id":"07339243e1b026f6bc03f09860987d0b","attributes":{"id":"07339243e1b026f6bc03f09860987d0b","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"2f9b04cb1d165bd41873bd91497d35a7"},"hover_glyph":{"type":"Circle","id":"01530227b13a395c6024499329c6242d"},"name":null,"data_source":{"type":"ColumnDataSource","id":"73553a0f332df9df864078aad992f5e8"},"glyph":{"type":"Circle","id":"2984770ead5595eb17038d99e9cd3810"}}},{"type":"LegendItem","id":"7989bc57461dc1f5b2d4d094dceafa91","attributes":{"id":"7989bc57461dc1f5b2d4d094dceafa91","tags":[],"label":{"value":"setosa"},"renderers":[{"type":"GlyphRenderer","id":"0fdabacfb54066c9d74dc8ecc4c43830"}]}},{"type":"LegendItem","id":"9ff35a649a3966641854d7802b45be60","attributes":{"id":"9ff35a649a3966641854d7802b45be60","tags":[],"label":{"value":"versicolor"},"renderers":[{"type":"GlyphRenderer","id":"e6376860af55ade248e3e3a6754d634b"}]}},{"type":"LegendItem","id":"4a1785945157bdd4477a8639594a59c1","attributes":{"id":"4a1785945157bdd4477a8639594a59c1","tags":[],"label":{"value":"virginica"},"renderers":[{"type":"GlyphRenderer","id":"07339243e1b026f6bc03f09860987d0b"}]}},{"type":"Legend","id":"81c9258f366a80dc74390a617146c861","attributes":{"id":"81c9258f366a80dc74390a617146c861","tags":[],"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"},"items":[{"type":"LegendItem","id":"7989bc57461dc1f5b2d4d094dceafa91"},{"type":"LegendItem","id":"9ff35a649a3966641854d7802b45be60"},{"type":"LegendItem","id":"4a1785945157bdd4477a8639594a59c1"}],"location":"top_left"}},{"type":"Range1d","id":"55ed923302b1d6f4d3027b036fa98677","attributes":{"id":"55ed923302b1d6f4d3027b036fa98677","tags":[],"start":-0.0586,"end":1.0586}},{"type":"Range1d","id":"17582b9f3b68d73aeef8f6d716ce3375","attributes":{"id":"17582b9f3b68d73aeef8f6d716ce3375","tags":[],"start":4.048,"end":8.152}},{"type":"LinearAxis","id":"5926acd591f36b29c11241ba6a4066a9","attributes":{"id":"5926acd591f36b29c11241ba6a4066a9","tags":[],"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"},"axis_label":"f-value","formatter":{"type":"BasicTickFormatter","id":"4ede00015fe8068a6b826d4f61c12f8f"},"ticker":{"type":"BasicTicker","id":"5495bb58c0b4f86179704a3e49a3de90"},"visible":true,"axis_label_text_font_size":"12pt"}},{"type":"BasicTickFormatter","id":"4ede00015fe8068a6b826d4f61c12f8f","attributes":{"id":"4ede00015fe8068a6b826d4f61c12f8f","tags":[]}},{"type":"BasicTicker","id":"5495bb58c0b4f86179704a3e49a3de90","attributes":{"id":"5495bb58c0b4f86179704a3e49a3de90","tags":[],"num_minor_ticks":5}},{"type":"Grid","id":"fa53fe5a6fd6f5552e96e3e9c6421ddc","attributes":{"id":"fa53fe5a6fd6f5552e96e3e9c6421ddc","tags":[],"dimension":0,"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"},"ticker":{"type":"BasicTicker","id":"5495bb58c0b4f86179704a3e49a3de90"}}},{"type":"LinearAxis","id":"86ace51bbe352700150cd2ec410ffb61","attributes":{"id":"86ace51bbe352700150cd2ec410ffb61","tags":[],"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"},"axis_label":"Sepal.Length","formatter":{"type":"BasicTickFormatter","id":"10e37114546385747cb8a653dd23c1b7"},"ticker":{"type":"BasicTicker","id":"067f16f10fa91a542b0838f87f6b81ad"},"visible":true,"axis_label_text_font_size":"12pt"}},{"type":"BasicTickFormatter","id":"10e37114546385747cb8a653dd23c1b7","attributes":{"id":"10e37114546385747cb8a653dd23c1b7","tags":[]}},{"type":"BasicTicker","id":"067f16f10fa91a542b0838f87f6b81ad","attributes":{"id":"067f16f10fa91a542b0838f87f6b81ad","tags":[],"num_minor_ticks":5}},{"type":"Grid","id":"90cb46b431dab3684fedcc5b9827d8b3","attributes":{"id":"90cb46b431dab3684fedcc5b9827d8b3","tags":[],"dimension":1,"plot":{"type":"Plot","id":"d6c60263f8fecf0c8172ef4d6ab69fc4","subtype":"Figure"},"ticker":{"type":"BasicTicker","id":"067f16f10fa91a542b0838f87f6b81ad"}}}]}}},"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="petal-width" class="section level3">
+<h3>Petal Width</h3>
+<div class="knitr-options" data-fig-width="576" data-fig-height="460">
+
+</div>
+<div id="htmlwidget-5e09352254049695ec80" style="width:576px;height:460.8px;" class="rbokeh html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5e09352254049695ec80">{"x":{"elementid":"e78f2fd0348758d5a6a3388080868ea8","modeltype":"Plot","modelid":"cbad72833b5a8970efda9b2a62fce020","docid":"97e7802554c283cc3600d7538afcdfb3","docs_json":{"97e7802554c283cc3600d7538afcdfb3":{"version":"0.12.5","title":"Bokeh Figure","roots":{"root_ids":["cbad72833b5a8970efda9b2a62fce020"],"references":[{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","attributes":{"id":"cbad72833b5a8970efda9b2a62fce020","sizing_mode":"scale_both","x_range":{"type":"Range1d","id":"ee39bd551208a285c239f2096007e989"},"y_range":{"type":"Range1d","id":"a42f3075064f3d65f45af7d0682ae699"},"left":[{"type":"LinearAxis","id":"f197b8932cfc3c6357151e322751f457"}],"below":[{"type":"LinearAxis","id":"5be698258b11db68ce210b2a00e4ba01"}],"right":[],"above":[],"renderers":[{"type":"BoxAnnotation","id":"26cf19412510ec629bef856190c4c131"},{"type":"GlyphRenderer","id":"fc2e9322278d934ed9a59ebaf3e87485"},{"type":"GlyphRenderer","id":"de03dbf595a01ef3569988d5c904e741"},{"type":"GlyphRenderer","id":"8dbe57b79c2b254110c791fa621a5ed5"},{"type":"GlyphRenderer","id":"ed030200d8d01b58a9cbe9e0267e1eb7"},{"type":"GlyphRenderer","id":"4fd109e32e9cad265930835ee3bbb272"},{"type":"GlyphRenderer","id":"f73f49b8d2580e4a04d8c62a3793817f"},{"type":"Legend","id":"da0031e2971f1c347e4314578aba0ae5"},{"type":"LinearAxis","id":"5be698258b11db68ce210b2a00e4ba01"},{"type":"Grid","id":"2cd09256119298e9ac5f34c4000fb4e1"},{"type":"LinearAxis","id":"f197b8932cfc3c6357151e322751f457"},{"type":"Grid","id":"67fb1a9bf51ba639311dcbb98cc0e559"}],"extra_y_ranges":{},"extra_x_ranges":{},"tags":[],"min_border_left":4,"min_border_right":4,"min_border_top":4,"min_border_bottom":4,"lod_threshold":null,"toolbar":{"type":"Toolbar","id":"d83fe7b25201c1db6d29dba4e25e8dbf"},"tool_events":{"type":"ToolEvents","id":"af131c1333c4d6fb6b2de9cc8afe23f6"}},"subtype":"Figure"},{"type":"Toolbar","id":"d83fe7b25201c1db6d29dba4e25e8dbf","attributes":{"id":"d83fe7b25201c1db6d29dba4e25e8dbf","tags":[],"active_drag":"auto","active_scroll":"auto","active_tap":"auto","tools":[{"type":"PanTool","id":"e01c1619ea050296c5137340d670b6ea"},{"type":"WheelZoomTool","id":"dc4c8188cc7e69558932bfafbdc9ac99"},{"type":"BoxZoomTool","id":"ae660b70645d4a7fc32af5e958bb429a"},{"type":"ResetTool","id":"a57bca3f7ad2a440defb1287ecfe3772"},{"type":"SaveTool","id":"fb06e49cf5220a41cd1bb93d565304c6"},{"type":"HelpTool","id":"ceaed2df17fa9b05f5d4ae2cd6302df8"}],"logo":null}},{"type":"PanTool","id":"e01c1619ea050296c5137340d670b6ea","attributes":{"id":"e01c1619ea050296c5137340d670b6ea","tags":[],"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"},"dimensions":"both"}},{"type":"ToolEvents","id":"af131c1333c4d6fb6b2de9cc8afe23f6","attributes":{"id":"af131c1333c4d6fb6b2de9cc8afe23f6","tags":[]},"geometries":[]},{"type":"WheelZoomTool","id":"dc4c8188cc7e69558932bfafbdc9ac99","attributes":{"id":"dc4c8188cc7e69558932bfafbdc9ac99","tags":[],"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"},"dimensions":"both"}},{"type":"BoxAnnotation","id":"26cf19412510ec629bef856190c4c131","attributes":{"id":"26cf19412510ec629bef856190c4c131","tags":[],"line_color":{"units":"data","value":"black"},"line_alpha":{"units":"data","value":1},"fill_color":{"units":"data","value":"lightgrey"},"fill_alpha":{"units":"data","value":0.5},"line_dash":[4,4],"line_width":{"units":"data","value":2},"level":"overlay","top_units":"screen","bottom_units":"screen","left_units":"screen","right_units":"screen","render_mode":"css"}},{"type":"BoxZoomTool","id":"ae660b70645d4a7fc32af5e958bb429a","attributes":{"id":"ae660b70645d4a7fc32af5e958bb429a","tags":[],"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"},"overlay":{"type":"BoxAnnotation","id":"26cf19412510ec629bef856190c4c131"}}},{"type":"ResetTool","id":"a57bca3f7ad2a440defb1287ecfe3772","attributes":{"id":"a57bca3f7ad2a440defb1287ecfe3772","tags":[],"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"}}},{"type":"SaveTool","id":"fb06e49cf5220a41cd1bb93d565304c6","attributes":{"id":"fb06e49cf5220a41cd1bb93d565304c6","tags":[],"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"}}},{"type":"HelpTool","id":"ceaed2df17fa9b05f5d4ae2cd6302df8","attributes":{"id":"ceaed2df17fa9b05f5d4ae2cd6302df8","tags":[],"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"},"redirect":"https://hafen.github.io/rbokeh/","help_tooltip":"Click to learn more about rbokeh."}},{"type":"ColumnDataSource","id":"8908a6afda9fa3cf742ee07d6c6dafbe","attributes":{"id":"8908a6afda9fa3cf742ee07d6c6dafbe","tags":[],"column_names":["x","y","line_color","fill_color"],"selected":[],"data":{"x":[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9,5.4,4.8,4.8,4.3,5.8,5.7,5.4,5.1,5.7,5.1,5.4,5.1,4.6,5.1,4.8,5,5,5.2,5.2,4.7,4.8,5.4,5.2,5.5,4.9,5,5.5,4.9,4.4,5.1,5,4.5,4.4,5,5.1,4.8,5.1,4.6,5.3,5,7,6.4,6.9,5.5,6.5,5.7,6.3,4.9,6.6,5.2,5,5.9,6,6.1,5.6,6.7,5.6,5.8,6.2,5.6,5.9,6.1,6.3,6.1,6.4,6.6,6.8,6.7,6,5.7,5.5,5.5,5.8,6,5.4,6,6.7,6.3,5.6,5.5,5.5,6.1,5.8,5,5.6,5.7,5.7,6.2,5.1,5.7,6.3,5.8,7.1,6.3,6.5,7.6,4.9,7.3,6.7,7.2,6.5,6.4,6.8,5.7,5.8,6.4,6.5,7.7,7.7,6,6.9,5.6,7.7,6.3,6.7,7.2,6.2,6.1,6.4,7.2,7.4,7.9,6.4,6.3,6.1,7.7,6.3,6.4,6,6.9,6.7,6.9,5.8,6.8,6.7,6.7,6.3,6.5,6.2,5.9],"y":[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1,3.7,3.4,3,3,4,4.4,3.9,3.5,3.8,3.8,3.4,3.7,3.6,3.3,3.4,3,3.4,3.5,3.4,3.2,3.1,3.4,4.1,4.2,3.1,3.2,3.5,3.6,3,3.4,3.5,2.3,3.2,3.5,3.8,3,3.8,3.2,3.7,3.3,3.2,3.2,3.1,2.3,2.8,2.8,3.3,2.4,2.9,2.7,2,3,2.2,2.9,2.9,3.1,3,2.7,2.2,2.5,3.2,2.8,2.5,2.8,2.9,3,2.8,3,2.9,2.6,2.4,2.4,2.7,2.7,3,3.4,3.1,2.3,3,2.5,2.6,3,2.6,2.3,2.7,3,2.9,2.9,2.5,2.8,3.3,2.7,3,2.9,3,3,2.5,2.9,2.5,3.6,3.2,2.7,3,2.5,2.8,3.2,3,3.8,2.6,2.2,3.2,2.8,2.8,2.7,3.3,3.2,2.8,3,2.8,3,2.8,3.8,2.8,2.8,2.6,3,3.4,3.1,3,3.1,3.1,3.1,2.7,3.2,3.3,3,2.5,3,3.4,3],"line_color":["#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#41AE76","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#238B45","#238B45","#238B45","#238B45","#238B45","#238B45","#006D2C","#41AE76","#238B45","#238B45","#41AE76","#238B45","#41AE76","#238B45","#238B45","#238B45","#238B45","#41AE76","#238B45","#238B45","#006D2C","#238B45","#238B45","#238B45","#238B45","#238B45","#238B45","#006D2C","#238B45","#41AE76","#238B45","#41AE76","#238B45","#006D2C","#238B45","#006D2C","#238B45","#238B45","#238B45","#238B45","#238B45","#238B45","#238B45","#41AE76","#238B45","#238B45","#238B45","#238B45","#238B45","#238B45","#00441B","#006D2C","#00441B","#006D2C","#00441B","#00441B","#006D2C","#006D2C","#006D2C","#00441B","#006D2C","#006D2C","#00441B","#006D2C","#00441B","#00441B","#006D2C","#00441B","#00441B","#238B45","#00441B","#006D2C","#006D2C","#006D2C","#00441B","#006D2C","#006D2C","#006D2C","#00441B","#006D2C","#006D2C","#006D2C","#00441B","#238B45","#238B45","#00441B","#00441B","#006D2C","#006D2C","#00441B","#00441B","#00441B","#006D2C","#00441B","#00441B","#00441B","#006D2C","#006D2C","#00441B","#006D2C"],"fill_color":["#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#41AE76","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#66C2A4","#238B45","#238B45","#238B45","#238B45","#238B45","#238B45","#006D2C","#41AE76","#238B45","#238B45","#41AE76","#238B45","#41AE76","#238B45","#238B45","#238B45","#238B45","#41AE76","#238B45","#238B45","#006D2C","#238B45","#238B45","#238B45","#238B45","#238B45","#238B45","#006D2C","#238B45","#41AE76","#238B45","#41AE76","#238B45","#006D2C","#238B45","#006D2C","#238B45","#238B45","#238B45","#238B45","#238B45","#238B45","#238B45","#41AE76","#238B45","#238B45","#238B45","#238B45","#238B45","#238B45","#00441B","#006D2C","#00441B","#006D2C","#00441B","#00441B","#006D2C","#006D2C","#006D2C","#00441B","#006D2C","#006D2C","#00441B","#006D2C","#00441B","#00441B","#006D2C","#00441B","#00441B","#238B45","#00441B","#006D2C","#006D2C","#006D2C","#00441B","#006D2C","#006D2C","#006D2C","#00441B","#006D2C","#006D2C","#006D2C","#00441B","#238B45","#238B45","#00441B","#00441B","#006D2C","#006D2C","#00441B","#00441B","#00441B","#006D2C","#00441B","#00441B","#00441B","#006D2C","#006D2C","#00441B","#006D2C"]}}},{"type":"Circle","id":"299c283795a28b4228369ed9cb40382e","attributes":{"id":"299c283795a28b4228369ed9cb40382e","tags":[],"size":{"units":"screen","value":10},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","field":"line_color"},"fill_color":{"units":"data","field":"fill_color"}}},{"type":"Circle","id":"634d1292cf3debff4d9dcc7630b18d87","attributes":{"id":"634d1292cf3debff4d9dcc7630b18d87","tags":[],"size":{"units":"screen","value":10},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"}}},{"type":"Circle","id":"e70ef9f1650009998a5722104a1976ce","attributes":{"id":"e70ef9f1650009998a5722104a1976ce","tags":[],"size":{"units":"screen","value":10},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"},"line_color":{"units":"data","field":"line_color"},"fill_color":{"units":"data","field":"fill_color"}}},{"type":"GlyphRenderer","id":"fc2e9322278d934ed9a59ebaf3e87485","attributes":{"id":"fc2e9322278d934ed9a59ebaf3e87485","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"634d1292cf3debff4d9dcc7630b18d87"},"hover_glyph":{"type":"Circle","id":"e70ef9f1650009998a5722104a1976ce"},"name":null,"data_source":{"type":"ColumnDataSource","id":"8908a6afda9fa3cf742ee07d6c6dafbe"},"glyph":{"type":"Circle","id":"299c283795a28b4228369ed9cb40382e"}}},{"type":"ColumnDataSource","id":"dd2ae9a30f87f9d1a0924651106aac1d","attributes":{"id":"dd2ae9a30f87f9d1a0924651106aac1d","tags":[],"column_names":["x","y"],"selected":[],"data":{"x":[null,null],"y":[null,null]}}},{"type":"Circle","id":"41bfc9a70c70ad670b3331b6aa1537e2","attributes":{"id":"41bfc9a70c70ad670b3331b6aa1537e2","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#66C2A4"},"fill_color":{"units":"data","value":"#66C2A4"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"eb2f198224ec3e35b7ed6fd3372de310","attributes":{"id":"eb2f198224ec3e35b7ed6fd3372de310","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"b9e307897b10d203009724d8bdc7b975","attributes":{"id":"b9e307897b10d203009724d8bdc7b975","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#66C2A4"},"fill_color":{"units":"data","value":"#66C2A4"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"de03dbf595a01ef3569988d5c904e741","attributes":{"id":"de03dbf595a01ef3569988d5c904e741","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"eb2f198224ec3e35b7ed6fd3372de310"},"hover_glyph":{"type":"Circle","id":"b9e307897b10d203009724d8bdc7b975"},"name":null,"data_source":{"type":"ColumnDataSource","id":"dd2ae9a30f87f9d1a0924651106aac1d"},"glyph":{"type":"Circle","id":"41bfc9a70c70ad670b3331b6aa1537e2"}}},{"type":"Circle","id":"80c3e34d894fdac8e2efd8b42d411b30","attributes":{"id":"80c3e34d894fdac8e2efd8b42d411b30","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#41AE76"},"fill_color":{"units":"data","value":"#41AE76"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"20f6e4754a0a45554914ea8f846f46c8","attributes":{"id":"20f6e4754a0a45554914ea8f846f46c8","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"07d001bdff247c791205a081f44602df","attributes":{"id":"07d001bdff247c791205a081f44602df","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#41AE76"},"fill_color":{"units":"data","value":"#41AE76"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"8dbe57b79c2b254110c791fa621a5ed5","attributes":{"id":"8dbe57b79c2b254110c791fa621a5ed5","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"20f6e4754a0a45554914ea8f846f46c8"},"hover_glyph":{"type":"Circle","id":"07d001bdff247c791205a081f44602df"},"name":null,"data_source":{"type":"ColumnDataSource","id":"dd2ae9a30f87f9d1a0924651106aac1d"},"glyph":{"type":"Circle","id":"80c3e34d894fdac8e2efd8b42d411b30"}}},{"type":"Circle","id":"ddeb4069d3b1c07e9b063edc2cdaa277","attributes":{"id":"ddeb4069d3b1c07e9b063edc2cdaa277","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#238B45"},"fill_color":{"units":"data","value":"#238B45"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"b307e1cbd91f559e4102b057ca810513","attributes":{"id":"b307e1cbd91f559e4102b057ca810513","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"ddbe6ba73ad8af37e78a258141226586","attributes":{"id":"ddbe6ba73ad8af37e78a258141226586","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#238B45"},"fill_color":{"units":"data","value":"#238B45"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"ed030200d8d01b58a9cbe9e0267e1eb7","attributes":{"id":"ed030200d8d01b58a9cbe9e0267e1eb7","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"b307e1cbd91f559e4102b057ca810513"},"hover_glyph":{"type":"Circle","id":"ddbe6ba73ad8af37e78a258141226586"},"name":null,"data_source":{"type":"ColumnDataSource","id":"dd2ae9a30f87f9d1a0924651106aac1d"},"glyph":{"type":"Circle","id":"ddeb4069d3b1c07e9b063edc2cdaa277"}}},{"type":"Circle","id":"cbd0f033fab29ea2572b53eac5c55cc6","attributes":{"id":"cbd0f033fab29ea2572b53eac5c55cc6","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#006D2C"},"fill_color":{"units":"data","value":"#006D2C"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"ecc7e987799cd51a88ce93be9bf461db","attributes":{"id":"ecc7e987799cd51a88ce93be9bf461db","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"a47aaa5471b5e75d50a79ad4bccb344b","attributes":{"id":"a47aaa5471b5e75d50a79ad4bccb344b","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#006D2C"},"fill_color":{"units":"data","value":"#006D2C"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"4fd109e32e9cad265930835ee3bbb272","attributes":{"id":"4fd109e32e9cad265930835ee3bbb272","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"ecc7e987799cd51a88ce93be9bf461db"},"hover_glyph":{"type":"Circle","id":"a47aaa5471b5e75d50a79ad4bccb344b"},"name":null,"data_source":{"type":"ColumnDataSource","id":"dd2ae9a30f87f9d1a0924651106aac1d"},"glyph":{"type":"Circle","id":"cbd0f033fab29ea2572b53eac5c55cc6"}}},{"type":"Circle","id":"6fccf9974592815676ffd1ad5e086929","attributes":{"id":"6fccf9974592815676ffd1ad5e086929","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#00441B"},"fill_color":{"units":"data","value":"#00441B"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"ded0526650e980df015bf1bf2c549e01","attributes":{"id":"ded0526650e980df015bf1bf2c549e01","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":0.5},"line_color":{"units":"data","value":"#e1e1e1"},"fill_color":{"units":"data","value":"#e1e1e1"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"Circle","id":"d81e263d0e34c7bf093ef251e53a9e93","attributes":{"id":"d81e263d0e34c7bf093ef251e53a9e93","tags":[],"size":{"units":"screen","value":0},"line_alpha":{"units":"data","value":1},"fill_alpha":{"units":"data","value":1},"line_color":{"units":"data","value":"#00441B"},"fill_color":{"units":"data","value":"#00441B"},"x":{"units":"data","field":"x"},"y":{"units":"data","field":"y"}}},{"type":"GlyphRenderer","id":"f73f49b8d2580e4a04d8c62a3793817f","attributes":{"id":"f73f49b8d2580e4a04d8c62a3793817f","tags":[],"selection_glyph":null,"nonselection_glyph":{"type":"Circle","id":"ded0526650e980df015bf1bf2c549e01"},"hover_glyph":{"type":"Circle","id":"d81e263d0e34c7bf093ef251e53a9e93"},"name":null,"data_source":{"type":"ColumnDataSource","id":"dd2ae9a30f87f9d1a0924651106aac1d"},"glyph":{"type":"Circle","id":"6fccf9974592815676ffd1ad5e086929"}}},{"type":"LegendItem","id":"300f79ca655d8a0fa99e173f78f2e6bc","attributes":{"id":"300f79ca655d8a0fa99e173f78f2e6bc","tags":[],"label":{"value":"Petal.Width"},"renderers":[]}},{"type":"LegendItem","id":"c9459e918f7c561a002ef7ca42d6cced","attributes":{"id":"c9459e918f7c561a002ef7ca42d6cced","tags":[],"label":{"value":" [0,0.5]"},"renderers":[{"type":"GlyphRenderer","id":"de03dbf595a01ef3569988d5c904e741"}]}},{"type":"LegendItem","id":"bde3a348a9eb940befdd97d1459cd87e","attributes":{"id":"bde3a348a9eb940befdd97d1459cd87e","tags":[],"label":{"value":" (0.5,1]"},"renderers":[{"type":"GlyphRenderer","id":"8dbe57b79c2b254110c791fa621a5ed5"}]}},{"type":"LegendItem","id":"8a896cf0c48ff02cdb797eecca6e9810","attributes":{"id":"8a896cf0c48ff02cdb797eecca6e9810","tags":[],"label":{"value":" (1,1.5]"},"renderers":[{"type":"GlyphRenderer","id":"ed030200d8d01b58a9cbe9e0267e1eb7"}]}},{"type":"LegendItem","id":"8fe6407ccfb588311b718418b55f370e","attributes":{"id":"8fe6407ccfb588311b718418b55f370e","tags":[],"label":{"value":" (1.5,2]"},"renderers":[{"type":"GlyphRenderer","id":"4fd109e32e9cad265930835ee3bbb272"}]}},{"type":"LegendItem","id":"6f3f9b7ca40335025a44a613a7b18a44","attributes":{"id":"6f3f9b7ca40335025a44a613a7b18a44","tags":[],"label":{"value":" (2,2.5]"},"renderers":[{"type":"GlyphRenderer","id":"f73f49b8d2580e4a04d8c62a3793817f"}]}},{"type":"Legend","id":"da0031e2971f1c347e4314578aba0ae5","attributes":{"id":"da0031e2971f1c347e4314578aba0ae5","tags":[],"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"},"items":[{"type":"LegendItem","id":"300f79ca655d8a0fa99e173f78f2e6bc"},{"type":"LegendItem","id":"c9459e918f7c561a002ef7ca42d6cced"},{"type":"LegendItem","id":"bde3a348a9eb940befdd97d1459cd87e"},{"type":"LegendItem","id":"8a896cf0c48ff02cdb797eecca6e9810"},{"type":"LegendItem","id":"8fe6407ccfb588311b718418b55f370e"},{"type":"LegendItem","id":"6f3f9b7ca40335025a44a613a7b18a44"}],"location":"top_right"}},{"type":"Range1d","id":"ee39bd551208a285c239f2096007e989","attributes":{"id":"ee39bd551208a285c239f2096007e989","tags":[],"start":4.048,"end":8.152}},{"type":"Range1d","id":"a42f3075064f3d65f45af7d0682ae699","attributes":{"id":"a42f3075064f3d65f45af7d0682ae699","tags":[],"start":1.832,"end":4.568}},{"type":"LinearAxis","id":"5be698258b11db68ce210b2a00e4ba01","attributes":{"id":"5be698258b11db68ce210b2a00e4ba01","tags":[],"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"},"axis_label":"Sepal.Length","formatter":{"type":"BasicTickFormatter","id":"592946c3bbf5776c09cfafab6393ad57"},"ticker":{"type":"BasicTicker","id":"00e0713aff41cdfa9cb4de76dbc98c67"},"visible":true,"axis_label_text_font_size":"12pt"}},{"type":"BasicTickFormatter","id":"592946c3bbf5776c09cfafab6393ad57","attributes":{"id":"592946c3bbf5776c09cfafab6393ad57","tags":[]}},{"type":"BasicTicker","id":"00e0713aff41cdfa9cb4de76dbc98c67","attributes":{"id":"00e0713aff41cdfa9cb4de76dbc98c67","tags":[],"num_minor_ticks":5}},{"type":"Grid","id":"2cd09256119298e9ac5f34c4000fb4e1","attributes":{"id":"2cd09256119298e9ac5f34c4000fb4e1","tags":[],"dimension":0,"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"},"ticker":{"type":"BasicTicker","id":"00e0713aff41cdfa9cb4de76dbc98c67"}}},{"type":"LinearAxis","id":"f197b8932cfc3c6357151e322751f457","attributes":{"id":"f197b8932cfc3c6357151e322751f457","tags":[],"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"},"axis_label":"Sepal.Width","formatter":{"type":"BasicTickFormatter","id":"4066b6b0d8dd4e496aa144d25717563b"},"ticker":{"type":"BasicTicker","id":"31c03b10056f51720855e3513621957b"},"visible":true,"axis_label_text_font_size":"12pt"}},{"type":"BasicTickFormatter","id":"4066b6b0d8dd4e496aa144d25717563b","attributes":{"id":"4066b6b0d8dd4e496aa144d25717563b","tags":[]}},{"type":"BasicTicker","id":"31c03b10056f51720855e3513621957b","attributes":{"id":"31c03b10056f51720855e3513621957b","tags":[],"num_minor_ticks":5}},{"type":"Grid","id":"67fb1a9bf51ba639311dcbb98cc0e559","attributes":{"id":"67fb1a9bf51ba639311dcbb98cc0e559","tags":[],"dimension":1,"plot":{"type":"Plot","id":"cbad72833b5a8970efda9b2a62fce020","subtype":"Figure"},"ticker":{"type":"BasicTicker","id":"31c03b10056f51720855e3513621957b"}}}]}}},"debug":false},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+</div>
+
+<script>
+
+$(document).ready(function () {
+
+  // add bootstrap table styles to pandoc tables
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+
+  // initialize mathjax
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+  document.getElementsByTagName("head")[0].appendChild(script);
+
+});
+</script>
+
+<div id="flexdashboard-source-code">
+<pre class="line-numbers"><code class="language-r">---
+title: "rbokeh iris dataset"
+author: "Ryan Hafen"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    social: menu
+    source_code: embed
+---
+
+```{r setup, include=FALSE}
+library(rbokeh)
+library(flexdashboard)
+```
+
+Column {data-width=600}
+-----------------------------------------------------------------------
+
+### Species
+
+```{r}
+figure(width = NULL, height = NULL) %>%
+  ly_points(Sepal.Length, Sepal.Width, data = iris, color = Species)
+# figure() %>%
+#   ly_points(Sepal.Length, Sepal.Width, data = iris,
+#     color = Species, glyph = Species)
+```
+
+
+Column {data-width=400}
+-----------------------------------------------------------------------
+
+### Species (Quantile)
+
+```{r}
+figure(width = NULL, height = NULL, legend_location = "top_left") %>%
+  ly_quantile(Sepal.Length, group = Species, data = iris)
+```
+
+### Petal Width
+
+```{r}
+figure(width = NULL, height = NULL) %>%
+  ly_points(Sepal.Length, Sepal.Width, data = iris,
+    color = Petal.Width)
+```
+
+</code></pre>
+</div>
+<script type="text/javascript">
+$(document).ready(function () {
+  FlexDashboard.init({
+    theme: "cosmo",
+    fillPage: true,
+    orientation: "columns",
+    storyboard: false,
+    defaultFigWidth: 576,
+    defaultFigHeight: 460,
+    defaultFigWidthMobile: 360,
+    defaultFigHeightMobile: 460,
+    resize_reload: true
+  });
+});
+</script>
+
+</body>
+</html>
